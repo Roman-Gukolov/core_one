@@ -1,33 +1,30 @@
 package com.epam.JavaCoreOne.exceprionRepository;
 
-/**
- * Класс для обработки исключений
- */
-public final class IncorrectInputData extends RepositoryExceptions {
+public final class UndefinedTransportIdException extends RepositoryExceptions {
     private String message = "";
     private Throwable cause = null;
 
-    public IncorrectInputData() {
+    public UndefinedTransportIdException() {
         super();
     }
 
-    public IncorrectInputData(String message) {
+    public UndefinedTransportIdException(String message) {
         super(message);
         this.message = message;
     }
 
-    public IncorrectInputData(String message, Throwable cause) {
+    public UndefinedTransportIdException(String message, Throwable cause) {
         super(message, cause);
         this.message = message;
         this.cause = cause;
     }
 
-    public IncorrectInputData(Throwable cause) {
+    public UndefinedTransportIdException(Throwable cause) {
         super(cause);
         this.cause = cause;
     }
 
-    protected IncorrectInputData(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected UndefinedTransportIdException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
         this.message = message;
         this.cause = cause;
@@ -35,7 +32,7 @@ public final class IncorrectInputData extends RepositoryExceptions {
 
     @Override
     public String toString() {
-        return "IncorrectInputData{" +
+        return "UndefinedTransportIdException{" +
                 "message='" + message + '\'' +
                 ", cause=" + cause +
                 '}';

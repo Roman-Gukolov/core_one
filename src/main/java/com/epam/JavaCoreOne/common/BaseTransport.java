@@ -1,17 +1,21 @@
 package com.epam.JavaCoreOne.common;
 
 public abstract class BaseTransport<T extends BaseTransport<T>> implements Comparable<BaseTransport> {
-    protected  String type;
+    protected int id;
+    protected String type;
     protected int price;
     protected int numberOfSeats;
     protected Integer fuelConsumption;
 
-    public BaseTransport(String type, int price, int numberOfSeats, int fuelConsumption) {
+    public BaseTransport(int id, String type, int price, int numberOfSeats, int fuelConsumption) {
+        this.id = id;
         this.type = type;
         this.price = price;
         this.numberOfSeats = numberOfSeats;
         this.fuelConsumption = fuelConsumption;
     }
+
+    public abstract int getId();
 
     public abstract String getType();
 
@@ -21,7 +25,7 @@ public abstract class BaseTransport<T extends BaseTransport<T>> implements Compa
 
     public abstract int getNumberOfSeats();
 
-    protected abstract int deepCompare(BaseTransport transport);
+    public abstract int deepCompare(BaseTransport transport);
 
     @Override
     public int compareTo(BaseTransport transport) {
@@ -35,7 +39,8 @@ public abstract class BaseTransport<T extends BaseTransport<T>> implements Compa
     @Override
     public final String toString() {
         return "Transport{" +
-                "type=" + getClass().getSimpleName() +
+                "id=" + id +
+                ", type=" + getClass().getSimpleName() +
                 ", price=" + price +
                 ", fuelConsumption=" + fuelConsumption +
                 ", numberOfSeats=" + numberOfSeats +

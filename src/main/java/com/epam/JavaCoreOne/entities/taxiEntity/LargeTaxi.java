@@ -4,17 +4,23 @@ import com.epam.JavaCoreOne.common.BaseTransport;
 import com.epam.JavaCoreOne.common.CommonTaxi;
 
 public class LargeTaxi extends CommonTaxi<LargeTaxi> {
+    private int id;
     private String type;
     private int price;
     private Integer fuelConsumption;
     private int numberOfSeats;
 
-    public LargeTaxi(String type, int price, int numberOfSeats, int fuelConsumption) {
-        super(type, price, numberOfSeats, fuelConsumption);
+    public LargeTaxi(int id, String type, int price, int numberOfSeats, int fuelConsumption) {
+        super(id, type, price, numberOfSeats, fuelConsumption);
+        this.id = id;
         this.type = type;
         this.price = price;
         this.numberOfSeats = numberOfSeats;
         this.fuelConsumption = fuelConsumption;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getType() {
@@ -34,6 +40,6 @@ public class LargeTaxi extends CommonTaxi<LargeTaxi> {
     }
 
     public int deepCompare(BaseTransport taxi) {
-        return (taxi != null) ? fuelConsumption.compareTo(taxi.getFuelConsumption()) : -1 ;
+        return (taxi != null) ? Integer.compare(fuelConsumption, taxi.getFuelConsumption()) : -1;
     }
 }

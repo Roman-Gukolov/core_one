@@ -4,18 +4,25 @@ import com.epam.JavaCoreOne.common.BaseTransport;
 import com.epam.JavaCoreOne.common.CommonUnderground;
 
 public class SmallUnderground extends CommonUnderground<SmallUnderground> {
+    private int id;
     private String  type;
     private int price;
     private Integer fuelConsumption;
     private int numberOfSeats;
 
-    public SmallUnderground(String type, int price, int numberOfSeats, int fuelConsumption) {
-        super(type, price, numberOfSeats, fuelConsumption);
+    public SmallUnderground(int id, String type, int price, int numberOfSeats, int fuelConsumption) {
+        super(id, type, price, numberOfSeats, fuelConsumption);
+        this.id = id;
         this.type = type;
         this.price = price;
         this.numberOfSeats = numberOfSeats;
         this.fuelConsumption = fuelConsumption;
     }
+
+    public int getId() {
+        return id;
+    }
+
     public String getType() {
         return type;
     }
@@ -33,6 +40,6 @@ public class SmallUnderground extends CommonUnderground<SmallUnderground> {
     }
 
     public int deepCompare(BaseTransport under) {
-        return (under != null) ? fuelConsumption.compareTo(under.getFuelConsumption()) : -1 ;
+        return (under != null) ? Integer.compare(fuelConsumption, under.getFuelConsumption()) : -1;
     }
 }

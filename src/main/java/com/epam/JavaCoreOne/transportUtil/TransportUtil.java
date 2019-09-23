@@ -13,7 +13,9 @@ import com.epam.JavaCoreOne.entities.taxiEntity.SmallTaxi;
 import com.epam.JavaCoreOne.entities.undergroundEntity.LargeUnderground;
 import com.epam.JavaCoreOne.entities.undergroundEntity.MiddleUnderground;
 import com.epam.JavaCoreOne.entities.undergroundEntity.SmallUnderground;
-import com.epam.JavaCoreOne.exceprionRepository.IncorrectInputData;
+import com.epam.JavaCoreOne.exceprionRepository.IncorrectInputDataException;
+import com.epam.JavaCoreOne.exceprionRepository.NullTransportException;
+import com.epam.JavaCoreOne.exceprionRepository.UndefinedTransportIdException;
 import com.epam.JavaCoreOne.transportRepository.TransportRepository;
 
 /**
@@ -21,14 +23,22 @@ import com.epam.JavaCoreOne.transportRepository.TransportRepository;
  */
 public class TransportUtil {
 
-    /** Тип Bus */
-    private static final String TYPE_BUS = "Bus";
+    /** Порядоквый номер трансопрта */
+    public static int COUNT_TRANSPORT = 0;
 
-    /** Тип Taxi */
-    private static final String TYPE_TAXI = "Taxi";
-
-    /** Тип Underground */
-    private static final String TYPE_UNDERGROUND = "Underground";
+    public static final String HELP_TEXT = "Добро пожаловать. \r\n"
+            + "Для создания автобуса введите \"Автобус\" \r\n"
+            + "Для создания такси введите \"Такси\" \r\n"
+            + "Для создания подземного поезда введите \"Поезд\" \r\n"
+            + "Для просмотра всего парка транспорта введите \"!Транспорт\" \r\n"
+            + "Для поиска транспорта введите \"Найти\" \r\n"
+            + "Для удаления транспорта введите \"Удалить\" \r\n"
+            + "Для сортировки парка по расходу топлива введите \"Отсортировать\" \r\n"
+            + "Для просмотра общей стоимости всего парка введите \"Стоимость\" \r\n"
+            + "Для поиска транспорта по указанному диапазону цен введите \"findPrices\" \r\n"
+            + "Для поиска транспорта по куказанному диапазону мест введите \"findSeats\" \r\n"
+            + "Для отображения этой памятки введите \"help\" \r\n"
+            + "Для выхода из программы введите \"exit\"";
 
     /** Сообщение ошибки при неправильном вводе цены */
     private static final String PRICE_EXCEPTION = "Введена некорректная цена. Цена не может быть меньше 0.";
@@ -50,13 +60,19 @@ public class TransportUtil {
         try {
             validateData(price, numberOfSeats, fuelConsumption);
             if (numberOfSeats <= 10) {
-                return new SmallBus(TYPE_BUS, price, numberOfSeats, fuelConsumption);
+                COUNT_TRANSPORT++;
+                return new SmallBus(COUNT_TRANSPORT, SmallBus.class.getSimpleName(), price,
+                        numberOfSeats, fuelConsumption);
             } else if (numberOfSeats <= 25) {
-                return new MiddleBus(TYPE_BUS, price, numberOfSeats, fuelConsumption);
+                COUNT_TRANSPORT++;
+                return new MiddleBus(COUNT_TRANSPORT, MiddleBus.class.getSimpleName(), price,
+                        numberOfSeats, fuelConsumption);
             } else if (numberOfSeats <= 100) {
-                return new LargeBus(TYPE_BUS, price, numberOfSeats, fuelConsumption);
+                COUNT_TRANSPORT++;
+                return new LargeBus(COUNT_TRANSPORT, LargeBus.class.getSimpleName(), price,
+                        numberOfSeats, fuelConsumption);
             }
-        } catch (IncorrectInputData e) {
+        } catch (IncorrectInputDataException e) {
             System.out.println(e.getMessage());
         }
         return null;
@@ -73,13 +89,19 @@ public class TransportUtil {
         try {
             validateData(price, numberOfSeats, fuelConsumption);
             if (numberOfSeats <= 10) {
-                return new SmallTaxi(TYPE_TAXI, price, numberOfSeats, fuelConsumption);
+                COUNT_TRANSPORT++;
+                return new SmallTaxi(COUNT_TRANSPORT, SmallTaxi.class.getSimpleName(), price,
+                        numberOfSeats, fuelConsumption);
             } else if (numberOfSeats <= 25) {
-                return new MiddleTaxi(TYPE_TAXI, price, numberOfSeats, fuelConsumption);
+                COUNT_TRANSPORT++;
+                return new MiddleTaxi(COUNT_TRANSPORT, MiddleTaxi.class.getSimpleName(), price,
+                        numberOfSeats, fuelConsumption);
             } else if (numberOfSeats <= 100) {
-                return new LargeTaxi(TYPE_TAXI, price, numberOfSeats, fuelConsumption);
+                COUNT_TRANSPORT++;
+                return new LargeTaxi(COUNT_TRANSPORT, LargeTaxi.class.getSimpleName(), price,
+                        numberOfSeats, fuelConsumption);
             }
-        } catch (IncorrectInputData e) {
+        } catch (IncorrectInputDataException e) {
             System.out.println(e.getMessage());
         }
         return null;
@@ -96,13 +118,19 @@ public class TransportUtil {
         try {
             validateData(price, numberOfSeats, fuelConsumption);
             if (numberOfSeats <= 10) {
-                return new SmallUnderground(TYPE_UNDERGROUND, price, numberOfSeats, fuelConsumption);
+                COUNT_TRANSPORT++;
+                return new SmallUnderground(COUNT_TRANSPORT, SmallUnderground.class.getSimpleName(), price,
+                        numberOfSeats, fuelConsumption);
             } else if (numberOfSeats <= 25) {
-                return new MiddleUnderground(TYPE_UNDERGROUND, price, numberOfSeats, fuelConsumption);
+                COUNT_TRANSPORT++;
+                return new MiddleUnderground(COUNT_TRANSPORT, MiddleUnderground.class.getSimpleName(), price,
+                        numberOfSeats, fuelConsumption);
             } else if (numberOfSeats <= 100) {
-                return new LargeUnderground(TYPE_UNDERGROUND, price, numberOfSeats, fuelConsumption);
+                COUNT_TRANSPORT++;
+                return new LargeUnderground(COUNT_TRANSPORT, LargeUnderground.class.getSimpleName(), price,
+                        numberOfSeats, fuelConsumption);
             }
-        } catch (IncorrectInputData e) {
+        } catch (IncorrectInputDataException e) {
             System.out.println(e.getMessage());
         }
         return null;
@@ -112,9 +140,14 @@ public class TransportUtil {
      * Печать всех транспортов в парке
      * @param transportList список транспорта
      */
-    public static void printTransports(TransportRepository<BaseTransport> transportList) {
-        for (int i = 0; i < transportList.size(); i++) {
-            System.out.println(transportList.toString(transportList.get(i)));
+    public static void printTransports(TransportRepository<BaseTransport> transportList) throws NullTransportException {
+        if (transportList != null) {
+                String transport = (transportList.get()).toString();
+                if (!transport.equals("")) {
+                    System.out.println(transport);
+                }
+        } else {
+            throw new NullTransportException("Нечего показывать. Парк пустой");
         }
     }
 
@@ -123,15 +156,14 @@ public class TransportUtil {
      * @param price цена
      * @param numberOfSeats количество мест
      * @param fuelConsumption расход топлива
-     * @throws IncorrectInputData
      */
-    private static void validateData(int price, int numberOfSeats, int fuelConsumption) throws IncorrectInputData {
+    private static void validateData(int price, int numberOfSeats, int fuelConsumption) throws IncorrectInputDataException {
         if (!isValidPrice(price)) {
-            throw new IncorrectInputData(PRICE_EXCEPTION);
+            throw new IncorrectInputDataException(PRICE_EXCEPTION);
         } else if (!isValidNumberOfSeats(numberOfSeats)) {
-            throw new IncorrectInputData(SEATS_EXCEPTION);
+            throw new IncorrectInputDataException(SEATS_EXCEPTION);
         } else if (!isValidFuelConsumption(fuelConsumption)) {
-            throw new IncorrectInputData(FUEL_EXCEPTION);
+            throw new IncorrectInputDataException(FUEL_EXCEPTION);
         }
     }
 

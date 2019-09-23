@@ -4,18 +4,25 @@ import com.epam.JavaCoreOne.common.BaseTransport;
 import com.epam.JavaCoreOne.common.CommonBus;
 
 public class LargeBus extends CommonBus<LargeBus> {
+    private int id;
     private String type;
     private int price;
     private Integer fuelConsumption;
     private int numberOfSeats;
 
-    public LargeBus(String type, int price, int numberOfSeats, int fuelConsumption) {
-        super(type, price, numberOfSeats, fuelConsumption);
+    public LargeBus(int id, String type, int price, int numberOfSeats, int fuelConsumption) {
+        super(id, type, price, numberOfSeats, fuelConsumption);
+        this.id = id;
         this.type = type;
         this.price = price;
         this.numberOfSeats = numberOfSeats;
         this.fuelConsumption = fuelConsumption;
     }
+
+    public int getId() {
+        return id;
+    }
+
     public String getType() {
         return type;
     }
@@ -33,6 +40,6 @@ public class LargeBus extends CommonBus<LargeBus> {
     }
 
     public int deepCompare(BaseTransport bus) {
-        return (bus != null) ? fuelConsumption.compareTo(bus.getFuelConsumption()) : -1 ;
+        return (bus != null) ? Integer.compare(fuelConsumption, bus.getFuelConsumption()) : -1;
     }
 }
