@@ -9,7 +9,7 @@ public class SmallBus extends CommonBus<SmallBus> {
     private Integer fuelConsumption;
     private int numberOfSeats;
 
-    public SmallBus(String type, int price, int numberOfSeats, int fuelConsumption){
+    public SmallBus(String type, int price, int numberOfSeats, int fuelConsumption) {
         super(type, price, numberOfSeats, fuelConsumption);
         this.type = type;
         this.price = price;

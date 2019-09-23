@@ -9,7 +9,7 @@ public class MiddleUnderground extends CommonUnderground<MiddleUnderground> {
     private Integer fuelConsumption;
     private int numberOfSeats;
 
-    public MiddleUnderground(String type, int price, int numberOfSeats, int fuelConsumption){
+    public MiddleUnderground(String type, int price, int numberOfSeats, int fuelConsumption) {
         super(type, price, numberOfSeats, fuelConsumption);
         this.type = type;
         this.price = price;

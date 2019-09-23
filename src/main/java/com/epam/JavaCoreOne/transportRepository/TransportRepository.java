@@ -13,7 +13,7 @@ public class TransportRepository<T> {
     private int size = 0;
 
     public TransportRepository(int size) {
-        this.data = new ArrayList<T>(20);
+        this.data = new ArrayList<> (size);
     }
 
     /**
@@ -46,7 +46,7 @@ public class TransportRepository<T> {
      * Удалить авто из парка
      */
     public void delete(int i) {
-        if (i <= size) {
+        if (i < size) {
             this.data.remove(i);
             size--;
         }
@@ -74,12 +74,12 @@ public class TransportRepository<T> {
      * Поиск транспорта по параметрам
      */
     public TransportRepository<T> findByParameters(String type,int price, int numberOfSeats, int fuelConsumption) {
-        TransportRepository<T> result = new TransportRepository<>(5);
+        TransportRepository<T> result = new TransportRepository<>(size);
         BaseTransport object;
         for (int i = 0; i < size; i++) {
             object = (BaseTransport) data.get(i);
             if (object.getType().equals(type) && object.getPrice() == price
-                    && object.getFuelConsumption() == fuelConsumption && object.getNumberOfSeats() == numberOfSeats){
+                    && object.getFuelConsumption() == fuelConsumption && object.getNumberOfSeats() == numberOfSeats) {
                 result.add((T) object);
             }
         }
@@ -90,11 +90,11 @@ public class TransportRepository<T> {
      * Получить список транспорта по указанному диапазону мест в транспорте
      */
     public TransportRepository<T> findBySeats(int firstNumberOfSeats, int endNumberOfSeats) {
-        TransportRepository<T> result = new TransportRepository<>(5);
+        TransportRepository<T> result = new TransportRepository<>(size);
         BaseTransport object;
         for (int i = 0; i < size; i++) {
             object = (BaseTransport) data.get(i);
-            if (object.getNumberOfSeats() >= firstNumberOfSeats && object.getNumberOfSeats() <= endNumberOfSeats){
+            if (object.getNumberOfSeats() >= firstNumberOfSeats && object.getNumberOfSeats() <= endNumberOfSeats) {
                 result.add((T) object);
             }
         }
@@ -105,11 +105,11 @@ public class TransportRepository<T> {
      * Получить список транспорта по указанному диапазону цены транспорта
      */
     public TransportRepository<T> findByPrice(int startPrice, int endPrice) {
-        TransportRepository<T> result = new TransportRepository<>(5);
+        TransportRepository<T> result = new TransportRepository<>(size);
         BaseTransport object;
         for (int i = 0; i < size; i++) {
             object = (BaseTransport) data.get(i);
-            if (object.getPrice() >= startPrice && object.getPrice() <= endPrice){
+            if (object.getPrice() >= startPrice && object.getPrice() <= endPrice) {
                 result.add((T) object);
             }
         }
