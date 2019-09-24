@@ -1,30 +1,30 @@
-package com.epam.JavaCoreOne.exceprionRepository;
+package com.epam.JavaCoreOne.exceprion;
 
-public final class NullTransportException extends RepositoryExceptions {
+public final class UndefinedTransportIdException extends RepositoryExceptions {
     private String message = "";
     private Throwable cause = null;
 
-    public NullTransportException() {
+    public UndefinedTransportIdException() {
         super();
     }
 
-    public NullTransportException(String message) {
+    public UndefinedTransportIdException(String message) {
         super(message);
         this.message = message;
     }
 
-    public NullTransportException(String message, Throwable cause) {
+    public UndefinedTransportIdException(String message, Throwable cause) {
         super(message, cause);
         this.message = message;
         this.cause = cause;
     }
 
-    public NullTransportException(Throwable cause) {
+    public UndefinedTransportIdException(Throwable cause) {
         super(cause);
         this.cause = cause;
     }
 
-    protected NullTransportException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected UndefinedTransportIdException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
         this.message = message;
         this.cause = cause;
@@ -32,7 +32,7 @@ public final class NullTransportException extends RepositoryExceptions {
 
     @Override
     public String toString() {
-        return "NullTransportException{" +
+        return "UndefinedTransportIdException{" +
                 "message='" + message + '\'' +
                 ", cause=" + cause +
                 '}';

@@ -1,9 +1,9 @@
-package com.epam.JavaCoreOne.transportRepository;
+package com.epam.JavaCoreOne.transport.repository;
 
 import com.epam.JavaCoreOne.common.BaseTransport;
-import com.epam.JavaCoreOne.exceprionRepository.NullTransportException;
-import com.epam.JavaCoreOne.exceprionRepository.RepositoryExceptions;
-import com.epam.JavaCoreOne.exceprionRepository.UndefinedTransportIdException;
+import com.epam.JavaCoreOne.exceprion.EmptyTransportException;
+import com.epam.JavaCoreOne.exceprion.RepositoryExceptions;
+import com.epam.JavaCoreOne.exceprion.UndefinedTransportIdException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public class TransportRepository<T> {
     /**
      * Получить парк авто
      */
-    public TransportRepository<BaseTransport> get() throws NullTransportException {
+    public TransportRepository<BaseTransport> get() throws EmptyTransportException {
         TransportRepository<BaseTransport> result = new TransportRepository<>(size);
         BaseTransport object;
         for (int i = 0; i < data.size(); i++) {
@@ -48,12 +48,12 @@ public class TransportRepository<T> {
     /**
      * Добавить авто
      */
-    public void add(T item) throws NullTransportException {
+    public void add(T item) throws EmptyTransportException {
         if (item != null) {
             data.add(item);
             size++;
         } else {
-            throw new NullTransportException("Некорректно указан транспорт для добавления");
+            throw new EmptyTransportException("Некорректно указан транспорт для добавления");
         }
     }
 
@@ -71,12 +71,12 @@ public class TransportRepository<T> {
                     }
                 }
         } else {
-            throw new NullTransportException("Некорректно указан транспорт для замены в парке");
+            throw new EmptyTransportException("Некорректно указан транспорт для замены в парке");
         }
     }
 
     /**
-     * Удалить авто из парка
+     * REMOVE авто из парка
      */
     public void delete(int i) throws UndefinedTransportIdException {
         if (i <= size) {
@@ -90,7 +90,7 @@ public class TransportRepository<T> {
                 }
             }
         } else {
-            throw new UndefinedTransportIdException("Ничего не удалено. Транспорт не найден.");
+            throw new UndefinedTransportIdException("Ничего не удалено. TRANSPORT не найден.");
         }
     }
 
@@ -122,7 +122,7 @@ public class TransportRepository<T> {
     /**
      * Получить список транспорта по указанному диапазону мест в транспорте
      */
-    public TransportRepository<T> findBySeats(int firstNumberOfSeats, int endNumberOfSeats) throws NullTransportException {
+    public TransportRepository<T> findBySeats(int firstNumberOfSeats, int endNumberOfSeats) throws EmptyTransportException {
         TransportRepository<T> result = new TransportRepository<>(size);
         BaseTransport object;
         for (int i = 0; i < data.size(); i++) {
@@ -137,7 +137,7 @@ public class TransportRepository<T> {
     /**
      * Получить список транспорта по указанному диапазону цены транспорта
      */
-    public TransportRepository<T> findByPrice(int startPrice, int endPrice) throws NullTransportException {
+    public TransportRepository<T> findByPrice(int startPrice, int endPrice) throws EmptyTransportException {
         TransportRepository<T> result = new TransportRepository<>(size);
         BaseTransport object;
         for (int i = 0; i < data.size(); i++) {

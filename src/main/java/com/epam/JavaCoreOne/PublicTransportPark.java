@@ -1,7 +1,8 @@
 package com.epam.JavaCoreOne;
 
-import com.epam.JavaCoreOne.transportService.TransportService;
-import com.epam.JavaCoreOne.transportUtil.TransportUtil;
+import com.epam.JavaCoreOne.transport.service.TransportService;
+import com.epam.JavaCoreOne.transport.util.MainCommand;
+import com.epam.JavaCoreOne.transport.util.TransportUtil;
 
 import java.util.Scanner;
 
@@ -22,46 +23,46 @@ public class PublicTransportPark {
             try {
                 System.out.println("Введите команду");
                 command = input.nextLine();
-                switch (command) {
-                    case "Автобус":
-                    case "Такси":
-                    case "Поезд": {
+                switch (MainCommand.valueOf(command)) {
+                    case Автобус:
+                    case Такси:
+                    case Поезд: {
                         service.inputData(command);
                         break;
                     }
-                    case "Транспорт": {
+                    case Транспорт: {
                         service.showPark();
                         break;
                     }
-                    case "Найти": {
+                    case Найти: {
                         service.findTransport();
                         break;
                     }
-                    case "Удалить": {
+                    case Удалить: {
                         service.removeTransport();
                         break;
                     }
-                    case "Отсортировать": {
+                    case Сортировать: {
                         service.sortPark();
                         break;
                     }
-                    case "Стоимость": {
+                    case Стоимость: {
                         service.getParkPrice();
                         break;
                     }
-                    case "findPrices": {
+                    case findPrices: {
                         service.findByRangePrice();
                         break;
                     }
-                    case "findSeats": {
+                    case findSeats: {
                         service.findByRangeSeats();
                         break;
                     }
-                    case "help": {
+                    case help: {
                         System.out.println(TransportUtil.HELP_TEXT);
                         break;
                     }
-                    case "exit": {
+                    case exit: {
                         work = false;
                         break;
                     }

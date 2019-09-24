@@ -1,11 +1,12 @@
-package com.epam.JavaCoreOne.transportService;
+package com.epam.JavaCoreOne.transport.service;
 
 import com.epam.JavaCoreOne.common.BaseTransport;
-import com.epam.JavaCoreOne.exceprionRepository.NullTransportException;
-import com.epam.JavaCoreOne.exceprionRepository.RepositoryExceptions;
-import com.epam.JavaCoreOne.exceprionRepository.UndefinedTransportIdException;
-import com.epam.JavaCoreOne.transportRepository.TransportRepository;
-import com.epam.JavaCoreOne.transportUtil.TransportUtil;
+import com.epam.JavaCoreOne.exceprion.EmptyTransportException;
+import com.epam.JavaCoreOne.exceprion.RepositoryExceptions;
+import com.epam.JavaCoreOne.exceprion.UndefinedTransportIdException;
+import com.epam.JavaCoreOne.transport.repository.TransportRepository;
+import com.epam.JavaCoreOne.transport.util.MainCommand;
+import com.epam.JavaCoreOne.transport.util.TransportUtil;
 
 import java.util.*;
 
@@ -29,18 +30,18 @@ public class TransportService {
             System.out.println("Введите расход топлива транспорта: ");
             int fuelConsumption = input.nextInt();
 
-            switch (command) {
-                case "Автобус": {
+            switch (MainCommand.valueOf(command)) {
+                case Автобус: {
                     addIToPark(TransportUtil.createBus(price, numberOfSeat, fuelConsumption));
                     break;
                 }
 
-                case "Такси": {
+                case Такси: {
                     addIToPark(TransportUtil.createTaxi(price, numberOfSeat, fuelConsumption));
                     break;
                 }
 
-                case "Поезд": {
+                case Поезд: {
                     addIToPark(TransportUtil.createUnderground(price, numberOfSeat, fuelConsumption));
                     break;
                 }
@@ -57,8 +58,8 @@ public class TransportService {
         try {
             transportPark.add(item);
             System.out.println("Новый транспорт добавлен в ваш парк");
-        } catch (NullTransportException e) {
-            System.out.println("Транспорт добавлен не был:");
+        } catch (EmptyTransportException e) {
+            System.out.println("TRANSPORT добавлен не был:");
             System.out.println(e.getMessage());
         }
     }
@@ -69,7 +70,7 @@ public class TransportService {
     public void showPark() {
         try {
             TransportUtil.printTransports(transportPark);
-        } catch (NullTransportException e) {
+        } catch (EmptyTransportException e) {
             System.out.println("Парк пустой");
         }
     }
@@ -80,7 +81,7 @@ public class TransportService {
     private void showPark(TransportRepository<BaseTransport> park) {
         try {
             TransportUtil.printTransports(park);
-        } catch (NullTransportException e) {
+        } catch (EmptyTransportException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -110,7 +111,7 @@ public class TransportService {
             int id = input.nextInt();
 
             transportPark.delete(id);
-            System.out.println("Транспорт удален успешно");
+            System.out.println("TRANSPORT удален успешно");
         } catch (UndefinedTransportIdException e) {
             System.out.println(e.getMessage());
         } catch (InputMismatchException e) {
@@ -146,7 +147,7 @@ public class TransportService {
             int endPrice = input.nextInt();
 
             showPark(transportPark.findByPrice(startPrice, endPrice));
-        } catch (NullTransportException e) {
+        } catch (EmptyTransportException e) {
             System.out.println(e.getMessage());
         } catch (InputMismatchException e) {
             System.out.println("Некорректно указана цена.");
@@ -166,7 +167,7 @@ public class TransportService {
             int endSeats = input.nextInt();
 
             showPark(transportPark.findBySeats(starSeats, endSeats));
-        } catch (NullTransportException e) {
+        } catch (EmptyTransportException e) {
             System.out.println(e.getMessage());
         } catch (InputMismatchException e) {
             System.out.println("Некорректно введено количество мест.");

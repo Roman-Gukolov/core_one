@@ -1,4 +1,4 @@
-package com.epam.JavaCoreOne.exceprionRepository;
+package com.epam.JavaCoreOne.exceprion;
 
 public abstract class RepositoryExceptions extends Exception {
     public RepositoryExceptions() {

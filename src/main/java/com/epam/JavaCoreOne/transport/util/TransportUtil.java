@@ -1,4 +1,4 @@
-package com.epam.JavaCoreOne.transportUtil;
+package com.epam.JavaCoreOne.transport.util;
 
 import com.epam.JavaCoreOne.common.BaseTransport;
 import com.epam.JavaCoreOne.common.CommonBus;
@@ -13,10 +13,9 @@ import com.epam.JavaCoreOne.entities.taxiEntity.SmallTaxi;
 import com.epam.JavaCoreOne.entities.undergroundEntity.LargeUnderground;
 import com.epam.JavaCoreOne.entities.undergroundEntity.MiddleUnderground;
 import com.epam.JavaCoreOne.entities.undergroundEntity.SmallUnderground;
-import com.epam.JavaCoreOne.exceprionRepository.IncorrectInputDataException;
-import com.epam.JavaCoreOne.exceprionRepository.NullTransportException;
-import com.epam.JavaCoreOne.exceprionRepository.UndefinedTransportIdException;
-import com.epam.JavaCoreOne.transportRepository.TransportRepository;
+import com.epam.JavaCoreOne.exceprion.EmptyTransportException;
+import com.epam.JavaCoreOne.exceprion.IncorrectInputDataException;
+import com.epam.JavaCoreOne.transport.repository.TransportRepository;
 
 /**
  * Утильный класс для работы с транспортом
@@ -30,10 +29,10 @@ public class TransportUtil {
             + "Для создания автобуса введите \"Автобус\" \r\n"
             + "Для создания такси введите \"Такси\" \r\n"
             + "Для создания подземного поезда введите \"Поезд\" \r\n"
-            + "Для просмотра всего парка транспорта введите \"!Транспорт\" \r\n"
+            + "Для просмотра всего парка транспорта введите \"Транспорт\" \r\n"
             + "Для поиска транспорта введите \"Найти\" \r\n"
             + "Для удаления транспорта введите \"Удалить\" \r\n"
-            + "Для сортировки парка по расходу топлива введите \"Отсортировать\" \r\n"
+            + "Для сортировки парка по расходу топлива введите \"Сортировать\" \r\n"
             + "Для просмотра общей стоимости всего парка введите \"Стоимость\" \r\n"
             + "Для поиска транспорта по указанному диапазону цен введите \"findPrices\" \r\n"
             + "Для поиска транспорта по куказанному диапазону мест введите \"findSeats\" \r\n"
@@ -140,14 +139,14 @@ public class TransportUtil {
      * Печать всех транспортов в парке
      * @param transportList список транспорта
      */
-    public static void printTransports(TransportRepository<BaseTransport> transportList) throws NullTransportException {
+    public static void printTransports(TransportRepository<BaseTransport> transportList) throws EmptyTransportException {
         if (transportList != null) {
                 String transport = (transportList.get()).toString();
                 if (!transport.equals("")) {
                     System.out.println(transport);
                 }
         } else {
-            throw new NullTransportException("Нечего показывать. Парк пустой");
+            throw new EmptyTransportException("Нечего показывать. Парк пустой");
         }
     }
 
