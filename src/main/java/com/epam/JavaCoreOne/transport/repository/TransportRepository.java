@@ -1,9 +1,11 @@
 package com.epam.JavaCoreOne.transport.repository;
 
+import com.epam.JavaCoreOne.annotation.annotations.ThisCodeSmells;
 import com.epam.JavaCoreOne.common.BaseTransport;
 import com.epam.JavaCoreOne.exceprion.EmptyTransportException;
 import com.epam.JavaCoreOne.exceprion.RepositoryExceptions;
 import com.epam.JavaCoreOne.exceprion.UndefinedTransportIdException;
+import com.epam.JavaCoreOne.functionalInterface.Converter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,10 @@ public class TransportRepository<T> {
     private List<T> data;
     private int size = 0;
 
+    /** Поле для индексации аннотации */
+    @ThisCodeSmells(reviewer = "Petya")
+    public String fieldForAnnotation = "string";
+
     public TransportRepository(int size) {
         this.data = new ArrayList<> (size);
     }
@@ -25,9 +31,9 @@ public class TransportRepository<T> {
     public TransportRepository<BaseTransport> get() throws EmptyTransportException {
         TransportRepository<BaseTransport> result = new TransportRepository<>(size);
         BaseTransport object;
-        for (int i = 0; i < data.size(); i++) {
-            object = (BaseTransport) data.get(i);
-                result.add(object);
+        for (T datum : data) {
+            object = (BaseTransport) datum;
+            result.add(object);
         }
         return result;
     }
@@ -104,29 +110,21 @@ public class TransportRepository<T> {
     /**
      * Получить размер парка
      */
+    @ThisCodeSmells(reviewer = "Petya")
     public int size() {
         return this.size;
     }
 
     /**
-     * Получить внутреннее состояние транспорта
-     */
-    public String toString(T item) {
-        if (item != null) {
-            return item.toString();
-        } else {
-            return "";
-        }
-    }
-
-    /**
      * Получить список транспорта по указанному диапазону мест в транспорте
      */
+    @SuppressWarnings({"unchecked", "unused"})
+    @ThisCodeSmells(reviewer = "Petya")
     public TransportRepository<T> findBySeats(int firstNumberOfSeats, int endNumberOfSeats) throws EmptyTransportException {
         TransportRepository<T> result = new TransportRepository<>(size);
         BaseTransport object;
-        for (int i = 0; i < data.size(); i++) {
-            object = (BaseTransport) data.get(i);
+        for (T datum : data) {
+            object = (BaseTransport) datum;
             if (object.getNumberOfSeats() >= firstNumberOfSeats && object.getNumberOfSeats() <= endNumberOfSeats) {
                 result.add((T) object);
             }
@@ -137,16 +135,35 @@ public class TransportRepository<T> {
     /**
      * Получить список транспорта по указанному диапазону цены транспорта
      */
+    @ThisCodeSmells(reviewer = "Petya")
+    @SuppressWarnings({"unchecked", "unused"})
     public TransportRepository<T> findByPrice(int startPrice, int endPrice) throws EmptyTransportException {
         TransportRepository<T> result = new TransportRepository<>(size);
         BaseTransport object;
-        for (int i = 0; i < data.size(); i++) {
-            object = (BaseTransport) data.get(i);
+        for (T datum : data) {
+            object = (BaseTransport) datum;
             if (object.getPrice() >= startPrice && object.getPrice() <= endPrice) {
                 result.add((T) object);
             }
         }
         return result;
+    }
+
+    /**
+     * Испотльзование функционального интерфейса. Сонвертация строки в число
+     * @return число
+     */
+    @ThisCodeSmells(reviewer = "Petya")
+    public int useInterfaceAnnotation(String line) {
+        Integer converted = 0;
+        try {
+            Converter<String, Integer> converter = (from) -> Integer.valueOf(from);
+            converted = converter.convert(line);
+            System.out.println(converted);
+        } catch (Exception e) {
+            System.out.println("Произошла ошибка при конвертации.");
+        }
+        return converted;
     }
 
     /**

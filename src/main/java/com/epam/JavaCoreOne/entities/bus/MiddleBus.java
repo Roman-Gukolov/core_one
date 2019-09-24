@@ -1,16 +1,16 @@
-package com.epam.JavaCoreOne.entities.taxiEntity;
+package com.epam.JavaCoreOne.entities.bus;
 
 import com.epam.JavaCoreOne.common.BaseTransport;
-import com.epam.JavaCoreOne.common.CommonTaxi;
+import com.epam.JavaCoreOne.common.CommonBus;
 
-public class MiddleTaxi extends CommonTaxi<MiddleTaxi> {
+public class MiddleBus extends CommonBus<MiddleBus> {
     private int id;
     private String type;
     private int price;
     private Integer fuelConsumption;
     private int numberOfSeats;
 
-    public MiddleTaxi(int id, String type, int price, int numberOfSeats, int fuelConsumption) {
+    public MiddleBus(int id, String type, int price, int numberOfSeats, int fuelConsumption) {
         super(id, type, price, numberOfSeats, fuelConsumption);
         this.id = id;
         this.type = type;
@@ -39,7 +39,7 @@ public class MiddleTaxi extends CommonTaxi<MiddleTaxi> {
         return numberOfSeats;
     }
 
-    public int deepCompare(BaseTransport taxi) {
-        return (taxi != null) ? Integer.compare(fuelConsumption, taxi.getFuelConsumption()) : -1;
+    public int deepCompare(BaseTransport bus) {
+        return (bus != null) ? Integer.compare(fuelConsumption, bus.getFuelConsumption()) : -1;
     }
 }

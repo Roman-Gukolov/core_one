@@ -1,16 +1,16 @@
-package com.epam.JavaCoreOne.entities.taxiEntity;
+package com.epam.JavaCoreOne.entities.taxi;
 
 import com.epam.JavaCoreOne.common.BaseTransport;
 import com.epam.JavaCoreOne.common.CommonTaxi;
 
-public class SmallTaxi extends CommonTaxi<SmallTaxi> {
+public class LargeTaxi extends CommonTaxi<LargeTaxi> {
     private int id;
     private String type;
     private int price;
     private Integer fuelConsumption;
     private int numberOfSeats;
 
-    public SmallTaxi(int id, String type, int price, int numberOfSeats, int fuelConsumption) {
+    public LargeTaxi(int id, String type, int price, int numberOfSeats, int fuelConsumption) {
         super(id, type, price, numberOfSeats, fuelConsumption);
         this.id = id;
         this.type = type;

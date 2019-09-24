@@ -1,17 +1,16 @@
-package com.epam.JavaCoreOne.entities.undergroundEntity;
-
+package com.epam.JavaCoreOne.entities.underground;
 
 import com.epam.JavaCoreOne.common.BaseTransport;
 import com.epam.JavaCoreOne.common.CommonUnderground;
 
-public class LargeUnderground extends CommonUnderground<LargeUnderground> {
+public class SmallUnderground extends CommonUnderground<SmallUnderground> {
     private int id;
-    private String type;
+    private String  type;
     private int price;
     private Integer fuelConsumption;
     private int numberOfSeats;
 
-    public LargeUnderground(int id, String type, int price, int numberOfSeats, int fuelConsumption) {
+    public SmallUnderground(int id, String type, int price, int numberOfSeats, int fuelConsumption) {
         super(id, type, price, numberOfSeats, fuelConsumption);
         this.id = id;
         this.type = type;

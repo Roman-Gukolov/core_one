@@ -1,5 +1,6 @@
 package com.epam.JavaCoreOne.transport.service;
 
+import com.epam.JavaCoreOne.annotation.annotations.ThisCodeSmells;
 import com.epam.JavaCoreOne.common.BaseTransport;
 import com.epam.JavaCoreOne.exceprion.EmptyTransportException;
 import com.epam.JavaCoreOne.exceprion.RepositoryExceptions;
@@ -10,6 +11,7 @@ import com.epam.JavaCoreOne.transport.util.TransportUtil;
 
 import java.util.*;
 
+@ThisCodeSmells(reviewer = "Petya")
 public class TransportService {
     private TransportRepository<BaseTransport> transportPark = new TransportRepository<>(5);
     private Scanner input;
@@ -125,6 +127,15 @@ public class TransportService {
     public void sortPark() {
         this.sortParkTransport();
         showPark();
+    }
+
+    /**
+     * Сортировка транспорта
+     * @deprecated устаревший метод.
+     */
+    @Deprecated
+    public void sortingPark() {
+        this.sortParkTransport();
     }
 
     /**
