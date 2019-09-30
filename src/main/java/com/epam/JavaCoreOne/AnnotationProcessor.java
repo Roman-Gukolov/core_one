@@ -1,6 +1,7 @@
-package com.epam.JavaCoreOne.annotation;
+package com.epam.JavaCoreOne;
 
-import com.epam.JavaCoreOne.PublicTransportPark;
+import com.epam.JavaCoreOne.annotation.handlers.CodeSmellsHandler;
+import com.epam.JavaCoreOne.annotation.handlers.ProdHandler;
 import com.epam.JavaCoreOne.transport.repository.TransportRepository;
 import com.epam.JavaCoreOne.transport.service.TransportService;
 

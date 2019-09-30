@@ -1,4 +1,4 @@
-package com.epam.JavaCoreOne.annotation;
+package com.epam.JavaCoreOne.annotation.handlers;
 
 import com.epam.JavaCoreOne.annotation.annotations.ThisCodeSmells;
 
@@ -17,6 +17,9 @@ public class CodeSmellsHandler {
     public CodeSmellsHandler(){
     }
 
+    /**
+     * Обработка аннотаций ThisCodeSmells
+     */
     public void inspectorAnnotation(Class<?> annotation) {
         this.annotation = annotation;
         this.allMethods = this.annotation.getDeclaredMethods();

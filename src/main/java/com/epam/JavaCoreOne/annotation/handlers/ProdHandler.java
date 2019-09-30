@@ -1,7 +1,6 @@
-package com.epam.JavaCoreOne.annotation;
+package com.epam.JavaCoreOne.annotation.handlers;
 
 import com.epam.JavaCoreOne.annotation.annotations.ProdCode;
-import com.epam.JavaCoreOne.transport.util.TransportUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -43,10 +42,5 @@ public class ProdHandler {
                 System.out.println("Переданный класс не найден");
             }
         }
-    }
-
-    @ProdCode
-    private void prodMethod() {
-        System.out.println(TransportUtil.HELP_TEXT);
     }
 }
