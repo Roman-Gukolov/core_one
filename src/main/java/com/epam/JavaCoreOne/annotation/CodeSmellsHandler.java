@@ -5,7 +5,7 @@ import com.epam.JavaCoreOne.annotation.annotations.ThisCodeSmells;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-public class AnnotationUtil {
+public class CodeSmellsHandler {
     private StringBuilder output= new StringBuilder();
     private int lengthByClasses = 0;
     private int lengthByMethods = 0;
@@ -14,13 +14,14 @@ public class AnnotationUtil {
     private Field[] allFields;
     private Class<?> annotation;
 
-    public AnnotationUtil(Class<?> annotation){
-        this.annotation = annotation;
-        this.allMethods = this.annotation.getMethods();
-        this.allFields = this.annotation.getFields();
+    public CodeSmellsHandler(){
     }
 
-    public void inspectorAnnotation() {
+    public void inspectorAnnotation(Class<?> annotation) {
+        this.annotation = annotation;
+        this.allMethods = this.annotation.getDeclaredMethods();
+        this.allFields = this.annotation.getDeclaredFields();
+
         output.append("Поиск аннотаций в ").append(this.annotation.getSimpleName()).append("\r\n");
         output.append("--------------------------------------------------------------------\r\n");
 

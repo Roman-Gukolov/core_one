@@ -1,5 +1,7 @@
 package com.epam.JavaCoreOne.transport.service;
 
+import com.epam.JavaCoreOne.PublicTransportPark;
+import com.epam.JavaCoreOne.annotation.annotations.InitThisObject;
 import com.epam.JavaCoreOne.annotation.annotations.ThisCodeSmells;
 import com.epam.JavaCoreOne.common.BaseTransport;
 import com.epam.JavaCoreOne.exceprion.EmptyTransportException;
@@ -9,13 +11,47 @@ import com.epam.JavaCoreOne.transport.repository.TransportRepository;
 import com.epam.JavaCoreOne.transport.util.MainCommand;
 import com.epam.JavaCoreOne.transport.util.TransportUtil;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 @ThisCodeSmells(reviewer = "Petya")
 public class TransportService {
-    private TransportRepository<BaseTransport> transportPark = new TransportRepository<>(5);
+
+    @InitThisObject(classPath = "com.epam.JavaCoreOne.transport.repository.TransportRepository")
+    private TransportRepository<BaseTransport> transportPark;
     private Scanner input;
     private int totalPrice;
+
+    public TransportService() {
+        try {
+            init();
+        } catch (ClassNotFoundException e) {
+            System.out.println("Ошибка инициализации парка");
+        }
+    }
+
+    private void init() throws ClassNotFoundException {
+        transportPark = (TransportRepository<BaseTransport>) tryInit("transportPark", 5);
+        if (transportPark == null) {
+            throw new ClassNotFoundException("Ошибка инициализации парка");
+        }
+    }
+
+    private Object tryInit(String fieldName, Object param) {
+        try {
+            Field field = TransportService.class.getDeclaredField(fieldName);
+            if (field.isAnnotationPresent(InitThisObject.class)) {
+                InitThisObject annotationInfo = field.getAnnotation(InitThisObject.class);
+                Class<?> clazz = Class.forName(annotationInfo.classPath());
+                return clazz.getDeclaredConstructor(int.class).newInstance(param);
+            }
+        } catch (NoSuchMethodException | InstantiationException | InvocationTargetException | NoSuchFieldException
+                | IllegalAccessException | ClassNotFoundException e) {
+            System.out.println("Ошибка инициализации: " + e);
+        }
+        return null;
+    }
 
     /**
      * Создание транспорта и добавление в парк
@@ -131,7 +167,8 @@ public class TransportService {
 
     /**
      * Сортировка транспорта
-     * @deprecated устаревший метод.
+     * @deprecated устаревший метод. @see {@link
+     * com.epam.JavaCoreOne.transport.service.TransportService#sortPark}
      */
     @Deprecated
     public void sortingPark() {

@@ -15,11 +15,12 @@ import java.util.List;
  */
 public class TransportRepository<T> {
     private List<T> data;
+    @ThisCodeSmells(reviewer = "Petya")
     private int size = 0;
 
     /** Поле для индексации аннотации */
     @ThisCodeSmells(reviewer = "Petya")
-    public String fieldForAnnotation = "string";
+    private String fieldForAnnotation = "string";
 
     public TransportRepository(int size) {
         this.data = new ArrayList<> (size);

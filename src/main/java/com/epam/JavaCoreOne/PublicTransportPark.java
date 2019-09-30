@@ -1,9 +1,13 @@
 package com.epam.JavaCoreOne;
 
+import com.epam.JavaCoreOne.annotation.annotations.InitThisObject;
+import com.epam.JavaCoreOne.annotation.annotations.ProdCode;
 import com.epam.JavaCoreOne.transport.service.TransportService;
 import com.epam.JavaCoreOne.transport.util.MainCommand;
 import com.epam.JavaCoreOne.transport.util.TransportUtil;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
 /**
@@ -12,9 +16,20 @@ import java.util.Scanner;
  */
 public class PublicTransportPark {
     private static Scanner input = new Scanner(System.in);
-    private static TransportService service = new TransportService();
+    @InitThisObject(classPath = "com.epam.JavaCoreOne.transport.service.TransportService")
+    private static TransportService service;
 
+    @ProdCode
     public static void main( String[] args ) {
+        try {
+            init();
+            start();
+        } catch (ClassNotFoundException e) {
+            System.out.println("Ошибка инициализации");
+        }
+    }
+
+    private static void start() {
         boolean work = true;
         String command;
         System.out.println(TransportUtil.HELP_TEXT);
@@ -66,10 +81,40 @@ public class PublicTransportPark {
                         work = false;
                         break;
                     }
+                    default: {
+                        System.out.println("Неизвестная команда");
+                        break;
+                    }
                 }
             } catch (Exception e) {
                 System.out.println("Произошла ошибка: не удалось обработать операцию");
             }
         }
+    }
+
+    /**
+     * Инициализация класса
+     * По задаче Java Core II
+     */
+    private static void init() throws ClassNotFoundException {
+        service = (TransportService) tryInit("service", null);
+        if (service == null) {
+            throw new ClassNotFoundException("Ошибка инициализации сервиса");
+        }
+    }
+
+    private static Object tryInit(String fieldName, Object param) {
+        try {
+            Field field = PublicTransportPark.class.getDeclaredField(fieldName);
+            if (field.isAnnotationPresent(InitThisObject.class)) {
+                InitThisObject annotationInfo = field.getAnnotation(InitThisObject.class);
+                Class<?> clazz = Class.forName(annotationInfo.classPath());
+                return clazz.getDeclaredConstructor().newInstance();
+            }
+        } catch (NoSuchMethodException | InstantiationException | InvocationTargetException | NoSuchFieldException
+                | IllegalAccessException | ClassNotFoundException e) {
+            System.out.println("Ошибка инициализации: " + e);
+        }
+        return null;
     }
 }
