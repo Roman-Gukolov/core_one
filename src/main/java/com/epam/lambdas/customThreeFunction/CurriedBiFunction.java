@@ -1,17 +1,7 @@
-package com.epam.lambdas;
+package com.epam.lambdas.customThreeFunction;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
-
-public class CalculatePerDiem implements CurriedBiFunction<Double, Integer, Double> {
-
-    private static final Double perDiemRate = 10.15;
-
-    @Override
-    public Double apply(Double dollarExchangeRate, Integer amountOfDays) {
-        return dollarExchangeRate * amountOfDays * perDiemRate;
-    }
-}
 
 @FunctionalInterface
 interface CurriedBiFunction<T, U, R> extends BiFunction<T, U, R> {

@@ -1,87 +1,116 @@
 package com.epam.lambdas;
 
+import com.epam.lambdas.entities.Author;
+import com.epam.lambdas.entities.Book;
+import com.epam.lambdas.entities.Person;
+import com.epam.lambdas.handlers.MainCommand;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.function.*;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+import static com.epam.lambdas.handlers.LambdasHandler.*;
+import static com.epam.lambdas.handlers.MainCommand.HELP_TEXT;
 
 public class Lambdas {
     private final static Logger logger = Logger.getLogger(Lambdas.class);
+    private static Scanner input = new Scanner(System.in);
 
-    private static Person firstPeople = new Person();
-    private static Person secondPeople = new Person();
-    private static Person lastPeople = new Person();
     private static List<Person> persons = new ArrayList<>();
+    private static Author[] authors = new Author[3];
+    private static Book[] books = new Book[3];
 
     public static void main(String[] args) {
-        createPerson();
-        sort();
-        runFuncInterfaces();
-        calculate();
+        init();
+        start();
     }
 
-    private static void createPerson() {
-        firstPeople.setName("Alex");
-        firstPeople.setAge(20);
+    private static void start() {
+        boolean work = true;
+        String command;
+        logger.info(HELP_TEXT);
 
-        secondPeople.setName("Andrey");
-        secondPeople.setAge(26);
-
-        lastPeople.setName("Denis");
-        lastPeople.setAge(25);
-
-        persons.add(secondPeople);
-        persons.add(lastPeople);
-        persons.add(firstPeople);
-
-        logger.info("Исходный список: ");
-        persons.forEach(logger::info);
+        while (work) {
+            try {
+                logger.info("Введите команду");
+                command = input.nextLine();
+                switch (MainCommand.valueOf(command)) {
+                    case sortPerson: {
+                        sort(persons);
+                        break;
+                    }
+                    case funcInterfaces: {
+                        runFuncInterfaces();
+                        break;
+                    }
+                    case calculate: {
+                        calculate();
+                        break;
+                    }
+                    case authors: {
+                        printAuthors(authors);
+                        break;
+                    }
+                    case books: {
+                        printBooks(books);
+                        break;
+                    }
+                    case checkPages: {
+                        checkPages(books);
+                        break;
+                    }
+                    case minMax: {
+                        findMinAndMaxPages(books);
+                        break;
+                    }
+                    case singleAuthors: {
+                        findBooksWithSingleAuthors(books);
+                        break;
+                    }
+                    case sortBooks: {
+                        sortBooks(books);
+                        break;
+                    }
+                    case titles: {
+                        List<String> titles = getListOfTitles(books);
+                        titles.forEach(logger::info);
+                        break;
+                    }
+                    case distinctAuthors: {
+                        List<Author> authors = getDistinctAuthors(books);
+                        logger.info("Уникальные авторы: ");
+                        authors.forEach(author ->
+                                logger.info("Author{" +
+                                        "name='" +author.getName() + '\'' +
+                                        ", age=" + author.getAge() +
+                                        ", books=" + author.getBooks().stream().map(Book::getTitle).collect(Collectors.toList())
+                                        + "]"));
+                        break;
+                    }
+                    case help: {
+                        logger.info(HELP_TEXT);
+                        break;
+                    }
+                    case exit: {
+                        work = false;
+                        break;
+                    }
+                    default: {
+                        logger.info("Неизвестная команда");
+                        break;
+                    }
+                }
+            } catch (Exception e) {
+                logger.info("Произошла ошибка " + e.getMessage());
+            }
+        }
     }
 
-    private static void sort() {
-        logger.info("Сортировка по имени: ");
-        persons.stream()
-                .sorted(Comparator.comparing(Person::getName))
-                .forEach(logger::info);
-
-        logger.info("Сортировка по возрасту: ");
-        persons.stream()
-                .sorted(Comparator.comparing(Person::getAge))
-                .forEach(logger::info);
-    }
-
-    private static void runFuncInterfaces() {
-        Predicate<Integer> isPositive = x -> x > 0;
-        BinaryOperator<Integer> multiply = (x, y) -> x * y;
-        UnaryOperator<Integer> square = x -> x * x;
-        Function<Integer, String> convert = x -> x + " dollars";
-        Consumer<Integer> printer = x -> logger.debug("5. printer: " + x + " dollars");
-        Supplier<Person> personSupplier = Person::new;
-
-        logger.debug("run functional interfaces");
-        logger.debug("1. isPositive \"5\" = " + isPositive.test(5));
-        logger.debug("2. multiply 5*5 = " + multiply.apply(5, 5));
-        logger.debug("3. square 7 = " + square.apply(7));
-        logger.debug("4. convert 500 = " + convert.apply(500));
-        printer.accept(123);
-        Person tempPerson = personSupplier.get();
-        tempPerson.setAge(200);
-        tempPerson.setName("This person got from supplier");
-        logger.debug("6. personSupplier: " + tempPerson);
-    }
-
-    private static void calculate() {
-        CalculatePerDiem calculatePerDiem = new CalculatePerDiem();
-        Function<Integer, Double> curriedByFirstArgument = calculatePerDiem.curryFirstArgument(57.16);
-
-        logger.info(curriedByFirstArgument.apply(5));
-        logger.info(curriedByFirstArgument.apply(3));
-        logger.info(curriedByFirstArgument.apply(10));
-
-        Function<Double, Double> curriedBySecondArgument = calculatePerDiem.currySecondArgument(10);
-        logger.info(curriedBySecondArgument.apply(56.12));
-        logger.info(curriedBySecondArgument.apply(61.63));
+    private static void init() {
+        persons = createPerson();
+        authors = createAuthor();
+        books = createBooks();
     }
 }

@@ -1,4 +1,4 @@
-package com.epam.lambdas;
+package com.epam.lambdas.entities;
 
 public class Person {
     private String name;
