@@ -1,5 +1,6 @@
 package com.epam.lambdas;
 
+import com.epam.lambdas.entities.A;
 import com.epam.lambdas.entities.Author;
 import com.epam.lambdas.entities.Book;
 import com.epam.lambdas.entities.Person;
@@ -7,6 +8,7 @@ import com.epam.lambdas.handlers.MainCommand;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -89,6 +91,10 @@ public class Lambdas {
                                         + "]"));
                         break;
                     }
+                    case myCollectors: {
+                        tryCollecting();
+                        break;
+                    }
                     case help: {
                         logger.info(HELP_TEXT);
                         break;
@@ -112,5 +118,23 @@ public class Lambdas {
         persons = createPerson();
         authors = createAuthor();
         books = createBooks();
+    }
+
+    private static void tryCollecting() {
+        A firstA = new A();
+        A secondA = new A();
+        A thirdA = new A();
+        firstA.stat1(45);
+        secondA.stat2(51);
+        thirdA.stat2(50);
+
+        Collection<A> myCollections = new ArrayList<>();
+        myCollections.add(firstA);
+        myCollections.add(secondA);
+        myCollections.add(thirdA);
+
+        List<A> listOfA = getListOfA(myCollections);
+        logger.info("Elements in got list");
+        listOfA.forEach(logger::info);
     }
 }

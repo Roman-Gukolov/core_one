@@ -13,6 +13,7 @@ public enum  MainCommand {
     sortBooks("sortBooks"),
     titles("titles"),
     distinctAuthors("distinctAuthors"),
+    myCollectors("myCollectors"),
     help("help"),
     exit("exit");
 
@@ -28,6 +29,7 @@ public enum  MainCommand {
             + "Сортировка книг - \"sortBooks\"" + "\r\n"
             + "Получить и вывести list of all titles - \"titles\"" + "\r\n"
             + "Получить уникальных авторов из массива книг - \"distinctAuthors\"" + "\r\n"
+            + "collect to List<A> - \"myCollectors\"" + "\r\n"
             + "Подсказка по командам - \"help\"" + "\r\n"
             + "Выход - \"exit\"";
 

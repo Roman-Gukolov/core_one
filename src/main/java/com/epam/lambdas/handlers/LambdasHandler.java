@@ -1,9 +1,11 @@
 package com.epam.lambdas.handlers;
 
 import com.epam.lambdas.customThreeFunction.CalculatePerDiem;
+import com.epam.lambdas.entities.A;
 import com.epam.lambdas.entities.Author;
 import com.epam.lambdas.entities.Book;
 import com.epam.lambdas.entities.Person;
+import com.epam.lambdas.myCollector.MyCollector;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -187,6 +189,15 @@ public class LambdasHandler {
                 .distinct()
                 .collect(Collectors.toList());
 
+    }
+
+    public static List<A> getListOfA(Collection<A> collection) {
+        logger.info("Elements in collection");
+        return collection
+                .stream()
+                .peek(logger::info)
+                .sorted(Comparator.comparing(A::getValue1))
+                .collect(new MyCollector());
     }
 
     private static void initArrays() {
