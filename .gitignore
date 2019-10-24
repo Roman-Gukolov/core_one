@@ -1,4 +1,13 @@
 
 *.idea/
-target/*
 *.iml
+
+core/*.idea/
+core/*.iml
+core/target/*
+!core/target/*.jar
+
+jdbc/*.idea/
+jdbc/*.iml
+jdbc/target/*
+!jdbc/target/*.jar
