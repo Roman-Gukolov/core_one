@@ -252,8 +252,7 @@ public class LibraryFunction implements Dao {
     public void deleteById(long id, ConnectionPool conPool) {
         String sql = "DELETE FROM LIBRARY WHERE BOOKID = ?";
         Connection con = conPool.useCon();
-        try (
-                PreparedStatement ps = con.prepareStatement(sql)) {
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setLong(1, id);
             ps.executeUpdate();
             System.out.println("Delete complited");
