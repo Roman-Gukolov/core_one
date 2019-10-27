@@ -1,12 +1,11 @@
 package com.epam.jdbc;
 
 import com.epam.jdbc.Entity.Library;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.testng.IObjectFactory;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.ObjectFactory;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,29 +14,34 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
+import static org.powermock.api.mockito.PowerMockito.mock;
 
-@RunWith(MockitoJUnitRunner.class)
 public class LibraryFunctionTest {
 
     private Library libraryFirst;
-    private Library libraryLast;
     private List<Library> libraries;
 
-    @Mock
     private LibraryFunction function;
-
-    @Mock
     private ConnectionPool pool;
 
-    @Before
+    @BeforeClass
     public void init() {
+        pool = mock(ConnectionPool.class);
+        function = mock(LibraryFunction.class);
+
         libraryFirst = new Library();
-        libraryLast = new Library();
+        Library libraryLast = new Library();
 
         libraries = new ArrayList<>();
         libraries.add(libraryFirst);
         libraries.add(libraryLast);
     }
+
+    @ObjectFactory
+    public IObjectFactory getObjectFactory() {
+        return new org.powermock.modules.testng.PowerMockObjectFactory();
+    }
+
 
     @Test
     public void testGetAll() {
@@ -54,7 +58,7 @@ public class LibraryFunctionTest {
         assertThat(rows, equalTo(function.getRowCount(pool)));
     }
 
-    @Test
+    @org.testng.annotations.Test
     public void testSearchById() {
         int id = 10;
         when(function.searchById(id, pool)).thenReturn(libraryFirst);

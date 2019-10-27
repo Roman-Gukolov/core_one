@@ -1,6 +1,7 @@
 
 *.idea/
 *.iml
+target/*
 
 core/*.idea/
 core/*.iml

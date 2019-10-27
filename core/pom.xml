@@ -8,6 +8,8 @@
   <artifactId>JavaCoreOne</artifactId>
   <version>1.0-SNAPSHOT</version>
 
+  <packaging>jar</packaging>
+
   <name>JavaCoreOne</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
@@ -19,24 +21,10 @@
   </properties>
 
   <parent>
-    <groupId>com.epam.core</groupId>
+    <groupId>com.epam.coreMain</groupId>
     <artifactId>core</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.17</version>
-    </dependency>
-  </dependencies>
 
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
@@ -82,15 +70,15 @@
         </plugin>
       </plugins>
     </pluginManagement>
-      <plugins>
-          <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-compiler-plugin</artifactId>
-              <configuration>
-                  <source>8</source>
-                  <target>8</target>
-              </configuration>
-          </plugin>
-      </plugins>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>8</source>
+          <target>8</target>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 </project>

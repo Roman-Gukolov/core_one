@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="testingCore">
+    <test name="coreGroups">
+        <groups>
+            <run>
+                <include name="core"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.epam.unitTesting.UtilsTest"/>
+            <class name="com.epam.unitTesting.CalculatorTest"/>
+        </classes>
+    </test>
+</suite>

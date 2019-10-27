@@ -1,25 +1,34 @@
 package com.epam.jdbc;
 
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.testng.IObjectFactory;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.ObjectFactory;
+import org.testng.annotations.Test;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import static org.powermock.api.mockito.PowerMockito.mock;
 
 /**
  * Unit test for simple App.
  */
 @RunWith(MockitoJUnitRunner.class)
 public class UtilTest {
-
-    @Mock
     private Util util;
+
+    @BeforeClass
+    public void init() {
+        util = mock(Util.class);
+    }
+
+    @ObjectFactory
+    public IObjectFactory getObjectFactory() {
+        return new org.powermock.modules.testng.PowerMockObjectFactory();
+    }
+
 
     @Test
     public void testGetDriverName() {
