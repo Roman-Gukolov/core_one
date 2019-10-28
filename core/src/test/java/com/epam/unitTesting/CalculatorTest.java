@@ -6,6 +6,9 @@ import org.testng.annotations.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
+/**
+ * Test for calculator
+ */
 @Test
 public class CalculatorTest {
 
@@ -13,7 +16,7 @@ public class CalculatorTest {
 
     private int[] fibonacciData = new int[] {1, 1, 2, 3, 5, 8, 13, 21, 34, 55};
 
-    @org.testng.annotations.Test(groups = { "core"})
+    @Test(groups = { "core"})
     public void testAddition() {
         Assert.assertEquals(calc.add(33d, 2d), calc.add(2d, 33d), 0);
         Assert.assertEquals(calc.add(33d, 2d) + 40,2 + calc.add(40d, 33d), 0);
@@ -21,7 +24,7 @@ public class CalculatorTest {
         Assert.assertEquals(-35, calc.add(-2d, -33d), 0);
     }
 
-    @org.testng.annotations.Test(groups = { "core"})
+    @Test(groups = { "core"})
     public void testSubtraction() {
         Assert.assertEquals(calc.subtract(23d, 30d),0 - calc.subtract(30d, 23d), 0);
         Assert.assertNotEquals(calc.subtract(23d, 30d) - 100, 23 - calc.subtract(30d, 100d), 0);
@@ -30,7 +33,7 @@ public class CalculatorTest {
         Assert.assertEquals(-20, calc.subtract(20d, 40d), 0);
     }
 
-    @org.testng.annotations.Test(groups = { "core"})
+    @Test(groups = { "core"})
     public void testMultiplication() {
         Assert.assertEquals(calc.multiply(5d, 10d), calc.multiply(10d, 5d), 0);
         Assert.assertEquals(calc.multiply(5d, 10d) * 50, 5 * calc.multiply(10d, 50d), 0);
@@ -40,7 +43,7 @@ public class CalculatorTest {
         Assert.assertEquals(0,  calc.multiply(5d, 0d), 0);
     }
 
-    @org.testng.annotations.Test(groups = { "core"})
+    @Test(groups = { "core"})
     public void testDivision() {
         Assert.assertNotEquals(calc.division(10d, 2d), calc.division(2d, 10d), 0);
         Assert.assertNotEquals(calc.division(10d, 2d) / 2, 10 / calc.division(2d, 2d), 0);
@@ -51,7 +54,7 @@ public class CalculatorTest {
         Assert.assertEquals(0, calc.division(0d, -2d), 0);
     }
 
-    @org.testng.annotations.Test(groups = { "core"})
+    @Test(groups = { "core"})
     public void testRoot() {
         Assert.assertEquals(4, calc.root(16d), 0);
         Assert.assertEquals(4 * 2, calc.root(16d * 4d), 0);
@@ -62,7 +65,7 @@ public class CalculatorTest {
 
     }
 
-    @org.testng.annotations.Test(groups = { "core"})
+    @Test(groups = { "core"})
     public void testPower() {
         Assert.assertEquals(calc.pow(5d * 3d, 2d), calc.pow(5d, 2d) * calc.pow(3d, 2d), 0);
         Assert.assertEquals(calc.pow(5d / 3d, 2d), calc.pow(5d, 2d) / calc.pow(3d, 2d), 0.000000000001);
@@ -76,14 +79,14 @@ public class CalculatorTest {
     }
 
 
-    @org.testng.annotations.Test(groups = { "core"})
+    @Test(groups = { "core"})
     public void testWithException() {
         org.testng.Assert.assertThrows(IllegalArgumentException.class, () -> calc.root(-4d));
         org.testng.Assert.assertThrows(IllegalArgumentException.class, () -> calc.division(10d,0d));
         org.testng.Assert.assertThrows(IllegalArgumentException.class, () -> calc.isPrime(-2));
     }
 
-    @org.testng.annotations.Test(groups = { "core"})
+    @Test(groups = { "core"})
     public void testIsPrime() {
         Assert.assertTrue(calc.isPrime(2));
         Assert.assertTrue(calc.isPrime(11));
@@ -92,7 +95,7 @@ public class CalculatorTest {
         Assert.assertFalse(calc.isPrime(15));
     }
 
-    @org.testng.annotations.Test(groups = { "core"})
+    @Test(groups = { "core"})
     public void testFib() {
         assertThat(fibonacciData, equalTo(calc.fib(10)));
     }

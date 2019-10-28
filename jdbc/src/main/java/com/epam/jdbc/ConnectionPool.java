@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayDeque;
 
+/**
+ * Пул соединений
+ */
 public class ConnectionPool {
 
     private ArrayDeque<Connection> availableConnections = new ArrayDeque<>();
@@ -28,16 +31,9 @@ public class ConnectionPool {
         }
     }
 
-    private Connection getConnection() {
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(url,user,password);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return conn;
-    }
-
+    /**
+     * Использовать соединение
+     */
     public synchronized Connection useCon() {
         Connection newConn;
         if (availableConnections.size() == 0) {
@@ -51,6 +47,9 @@ public class ConnectionPool {
         return newConn;
     }
 
+    /**
+     * Освободить использованное соединение
+     */
     public synchronized void putUsedCon(Connection connection) throws NullPointerException {
         if (connection != null) {
             if (usedConnections.remove(connection)) {
@@ -63,5 +62,15 @@ public class ConnectionPool {
 
     public int getCountAvailableConnections() {
         return availableConnections.size();
+    }
+
+    private Connection getConnection() {
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(url,user,password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return conn;
     }
 }

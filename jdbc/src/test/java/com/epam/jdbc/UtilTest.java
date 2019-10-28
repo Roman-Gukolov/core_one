@@ -3,6 +3,7 @@ package com.epam.jdbc;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.testng.IObjectFactory;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.ObjectFactory;
 import org.testng.annotations.Test;
@@ -22,6 +23,11 @@ public class UtilTest {
     @BeforeClass
     public void init() {
         util = mock(Util.class);
+    }
+
+    @AfterClass
+    public void destroy() {
+        util = null;
     }
 
     @ObjectFactory

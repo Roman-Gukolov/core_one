@@ -2,11 +2,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="testingJdbc" verbose="10"
        object-factory="org.powermock.modules.testng.PowerMockObjectFactory">
-    <test name="clientTest">
-        <classes>
-            <class name="com.epam.jdbc.ClientTest"/>
-        </classes>
-    </test>
     <test name="libraryFunctionsTest">
         <classes>
             <class name="com.epam.jdbc.LibraryFunctionTest"/>
@@ -15,6 +10,11 @@
     <test name="utilTest">
         <classes>
             <class name="com.epam.jdbc.UtilTest"/>
+        </classes>
+    </test>
+    <test name="clientTest">
+        <classes>
+            <class name="com.epam.jdbc.ClientTest"/>
         </classes>
     </test>
 </suite>

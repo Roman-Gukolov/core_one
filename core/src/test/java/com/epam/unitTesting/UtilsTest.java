@@ -1,14 +1,23 @@
 package com.epam.unitTesting;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
+/**
+ * Test for Utils
+ */
 @org.testng.annotations.Test
 public class UtilsTest {
     private Utils utils = new Utils();
+
+    @BeforeClass
+    public void destroy() {
+        utils = null;
+    }
 
     @org.testng.annotations.Test(groups = { "core"})
     public void testConcatenateWords() {

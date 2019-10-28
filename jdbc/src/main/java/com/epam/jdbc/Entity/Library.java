@@ -2,12 +2,26 @@ package com.epam.jdbc.Entity;
 
 import java.sql.Date;
 
+/**
+ * Сущность Библиотека для БД
+ *
+ * @author Roman Gukolov
+ */
 public class Library {
 
+    /** Id */
     private long id;
+
+    /** Номер полки */
     private long shelfNumber;
+
+    /** Название книги */
     private String bookName;
+
+    /** Автор */
     private String author;
+
+    /** Дата издания */
     private Date dateRelease;
 
     public Library(){

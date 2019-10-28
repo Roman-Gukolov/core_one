@@ -6,8 +6,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Класс работы с БД
+ */
 public class LibraryFunction implements Dao {
 
+    /**
+     * Получить список книг
+     */
     @Override
     public List<Library> getAll(ConnectionPool conPool) {
         List<Library> libraryList = new ArrayList<>();
@@ -32,6 +38,9 @@ public class LibraryFunction implements Dao {
         return libraryList;
     }
 
+    /**
+     * Получить количество книг
+     */
     @Override
     public int getRowCount(ConnectionPool conPool) {
         int result=0;
@@ -48,6 +57,9 @@ public class LibraryFunction implements Dao {
         return result;
     }
 
+    /**
+     * Добавить книгу
+     */
     @Override
     public void add(Library library, ConnectionPool conPool) {
         String sql = "INSERT INTO LIBRARY (BOOKID,SHELF_NUMBER,BOOKNAME,AUTHOR,DATE_RELEASE) VALUES (?,?,?,?,?)";
@@ -68,6 +80,9 @@ public class LibraryFunction implements Dao {
         }
     }
 
+    /**
+     * Обновить книгу
+     */
     @Override
     public void update(Library library, ConnectionPool conPool) {
         String sql = "UPDATE LIBRARY SET SHELF_NUMBER = ?, BOOKNAME = ?, AUTHOR = ?, DATE_RELEASE = ? WHERE BOOKID = ?";
@@ -87,6 +102,9 @@ public class LibraryFunction implements Dao {
         }
     }
 
+    /**
+     * Поиск книг по id
+     */
     @Override
     public Library searchById(long id, ConnectionPool conPool) {
         System.out.println("Search by Id");
@@ -112,6 +130,9 @@ public class LibraryFunction implements Dao {
         return library;
     }
 
+    /**
+     * Поиск книг по названию
+     */
     @Override
     public List<Library> searchByBookName(String bookName, ConnectionPool conPool) {
         System.out.println("Search by book-name");
@@ -139,6 +160,9 @@ public class LibraryFunction implements Dao {
         return libraryList;
     }
 
+    /**
+     * Поиск книг по автору
+     */
     @Override
     public List<Library> searchByAuthor(String author, ConnectionPool conPool) {
         System.out.println("Search by author");
@@ -166,6 +190,9 @@ public class LibraryFunction implements Dao {
         return libraryList;
     }
 
+    /**
+     * Поиск книг по году издания
+     */
     @Override
     public List<Library> searchByYear(int year, ConnectionPool conPool) {
         System.out.println("Search by year release");
@@ -193,6 +220,9 @@ public class LibraryFunction implements Dao {
         return libraryList;
     }
 
+    /**
+     * Поиск книг по номеру полки
+     */
     @Override
     public List<Library> searchByShelfNumber(long number, ConnectionPool conPool) {
         System.out.println("Search book on shelf number");
@@ -220,6 +250,9 @@ public class LibraryFunction implements Dao {
         return libraryList;
     }
 
+    /**
+     * Поиск книг по названию и автору
+     */
     @Override
     public List<Library> searchByBookNameAndAuthor(String bookName, String author, ConnectionPool conPool) {
         System.out.println("Search by book-name and author");
@@ -248,6 +281,9 @@ public class LibraryFunction implements Dao {
         return libraryList;
     }
 
+    /**
+     * Удаление книги по id
+     */
     @Override
     public void deleteById(long id, ConnectionPool conPool) {
         String sql = "DELETE FROM LIBRARY WHERE BOOKID = ?";
@@ -263,6 +299,9 @@ public class LibraryFunction implements Dao {
         }
     }
 
+    /**
+     * Удаление книги по названию и автору
+     */
     @Override
     public void deleteByBookNameAndAuthor(String bookName, String author, ConnectionPool conPool) {
         String sql = "DELETE FROM LIBRARY WHERE BOOKNAME = ? AND AUTHOR = ?";

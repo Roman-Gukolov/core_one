@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Утильный класс для подключения к БД
+ */
 public class Util {
     private String driverName;
     private String url;

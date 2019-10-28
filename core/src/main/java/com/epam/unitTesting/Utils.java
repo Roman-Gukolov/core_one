@@ -1,8 +1,16 @@
 package com.epam.unitTesting;
 
+import org.apache.log4j.Logger;
+
 import java.text.Normalizer;
 
+/**
+ * Utils
+ *
+ * @author Roman Gukolov
+ */
 public class Utils {
+    private static final Logger logger = Logger.getLogger(Utils.class);
 
     /**
      * Сложение строк
@@ -11,7 +19,9 @@ public class Utils {
      * @return строка, после сложения
      */
     public String concatenateWords(String s1, String s2) {
-        return s1.concat(s2);
+        String result = s1.concat(s2);
+        logger.info("Результат: " + result);
+        return result;
     }
 
     /**
@@ -29,6 +39,7 @@ public class Utils {
             i++;
             result = result * i;
         }
+        logger.info("Результат: " + result);
         return result;
     }
 

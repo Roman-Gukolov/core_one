@@ -2,6 +2,11 @@ package com.epam.unitTesting;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Simple calculator
+ *
+ * @author Roman Gukolov
+ */
 public class Calculator {
 
     private static final Logger logger = Logger.getLogger(Calculator.class);
@@ -14,21 +19,27 @@ public class Calculator {
      * Сложение
      */
     public Double add(Double value1, Double value2) {
-        return value1 + value2;
+        Double result = value1 + value2;
+        logger.info("Результат: " + result);
+        return result;
     }
 
     /**
      * Вычитание
      */
     public Double subtract(Double value1, Double value2) {
-        return value1 - value2;
+        Double result = value1 - value2;
+        logger.info("Результат: " + result);
+        return result;
     }
 
     /**
      * Умножение
      */
     public Double multiply(Double value1, Double value2) {
-        return value1 * value2;
+        Double result = value1 * value2;
+        logger.info("Результат: " + result);
+        return result;
     }
 
     /**
@@ -41,7 +52,10 @@ public class Calculator {
         if (value1 == 0) {
             return 0d;
         }
-        return value1 / value2;
+
+        Double result = value1 / value2;
+        logger.info("Результат: " + result);
+        return result;
     }
 
     /**
@@ -51,14 +65,19 @@ public class Calculator {
         if (value < 0) {
             throw new IllegalArgumentException();
         }
-        return  Math.sqrt(value);
+
+        Double result = Math.sqrt(value);
+        logger.info("Результат: " + result);
+        return result;
     }
 
     /**
      * Степень
      */
     public Double pow(Double value1, Double value2) {
-        return Math.pow(value1, value2) ;
+        Double result = Math.pow(value1, value2);
+        logger.info("Результат: " + result);
+        return result;
     }
 
     /**

@@ -3,6 +3,7 @@ package com.epam.jdbc;
 import com.epam.jdbc.Entity.Library;
 import org.mockito.Mockito;
 import org.testng.IObjectFactory;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.ObjectFactory;
 import org.testng.annotations.Test;
@@ -35,6 +36,12 @@ public class LibraryFunctionTest {
         libraries = new ArrayList<>();
         libraries.add(libraryFirst);
         libraries.add(libraryLast);
+    }
+
+    @AfterClass
+    public void destroy() {
+        pool = null;
+        function = null;
     }
 
     @ObjectFactory

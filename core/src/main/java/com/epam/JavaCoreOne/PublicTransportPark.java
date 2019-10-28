@@ -12,7 +12,8 @@ import java.util.Scanner;
 
 /**
  * Java Core 1
- * @author Roman_Gukolov@epam.com
+ *
+ * @author Roman Gukolov
  */
 public class PublicTransportPark {
     private static Scanner input = new Scanner(System.in);

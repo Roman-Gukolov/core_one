@@ -6,6 +6,9 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Класс клиента
+ */
 public class Client {
     private ConnectionPool connection;
     private Scanner inputCommand = new Scanner(System.in);
@@ -13,10 +16,12 @@ public class Client {
     public Client(ConnectionPool conPool) {
         this.connection = conPool;
         printHelp();
-        start();
     }
 
-    private void start() {
+    /**
+     * Старт работы с бд
+     */
+    public void start() {
         LibraryFunction libraryFunction = new LibraryFunction();
         Library library;
         while (true) {
