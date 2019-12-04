@@ -33,8 +33,8 @@ public final class EmptyTransportException extends RepositoryExceptions {
     @Override
     public String toString() {
         return "EmptyTransportException{" +
-                "message='" + message + '\'' +
+                "message=" + message +
                 ", cause=" + cause +
-                '}';
+                "}";
     }
 }

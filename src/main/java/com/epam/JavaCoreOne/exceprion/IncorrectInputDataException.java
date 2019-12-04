@@ -36,8 +36,8 @@ public final class IncorrectInputDataException extends RepositoryExceptions {
     @Override
     public String toString() {
         return "IncorrectInputDataException{" +
-                "message='" + message + '\'' +
+                "message=" + message +
                 ", cause=" + cause +
-                '}';
+                "}";
     }
 }

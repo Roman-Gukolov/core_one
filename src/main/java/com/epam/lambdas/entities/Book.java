@@ -34,9 +34,9 @@ public class Book {
 //    @Override
 //    public String toString() {
 //        return "Book{" +
-//                "title='" + title + '\'' +
+//                        "title=" +book.getTitle() +
 //                ", numberOfPage=" + numberOfPage +
 //                ", authors=" + authors +
-//                '}';
+//                "}";
 //    }
 }

@@ -34,9 +34,9 @@ public class Author {
 //    @Override
 //    public String toString() {
 //        return "Author{" +
-//                "name='" + name + '\'' +
+//                "name=" + name +
 //                ", age=" + age +
 //                ", books=" + books +
-//                '}';
+//                "}";
 //    }
 }

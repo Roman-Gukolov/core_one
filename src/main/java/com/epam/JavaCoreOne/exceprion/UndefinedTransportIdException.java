@@ -33,8 +33,8 @@ public final class UndefinedTransportIdException extends RepositoryExceptions {
     @Override
     public String toString() {
         return "UndefinedTransportIdException{" +
-                "message='" + message + '\'' +
+                "message=" + message +
                 ", cause=" + cause +
-                '}';
+                "}";
     }
 }

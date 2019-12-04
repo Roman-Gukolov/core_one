@@ -103,7 +103,7 @@ public class LambdasHandler {
     public static void printAuthors(Author[] arrayOfAuthors) {
         Arrays.stream(arrayOfAuthors).forEach(author ->
                 logger.info("Author[" +
-                        "name='" +author.getName() + '\'' +
+                        "name=" + author.getName() +
                         ", age=" + author.getAge() +
                         ", books=" + author.getBooks().stream().map(Book::getTitle).collect(Collectors.toList())
                         + "]"));
@@ -112,7 +112,7 @@ public class LambdasHandler {
     public static void printBooks(Book[] arrayOfBooks) {
         Arrays.stream(arrayOfBooks).forEach(book ->
                 logger.info("Book[" +
-                        "title='" +book.getTitle() + '\'' +
+                        "title=" + book.getTitle() +
                         ", numberOfPage=" + book.getNumberOfPage() +
                         ", authors=" + book.getAuthors().stream().map(Author::getName).collect(Collectors.toList())
                         + "]"));
@@ -124,7 +124,7 @@ public class LambdasHandler {
                 .filter(item -> item.getNumberOfPage() > 200)
                 .forEach(book ->
                         logger.info("Book[" +
-                                "title='" +book.getTitle() + '\'' +
+                                "title=" + book.getTitle() +
                                 ", numberOfPage=" + book.getNumberOfPage() +
                                 ", authors=" + book.getAuthors().stream().map(Author::getName).collect(Collectors.toList())
                                 + "]"));
@@ -146,7 +146,7 @@ public class LambdasHandler {
                 .parallel()
                 .forEach(book ->
                         logger.info("Book[" +
-                                "title='" +book.getTitle() + '\'' +
+                                "title=" + book.getTitle() +
                                 ", numberOfPage=" + book.getNumberOfPage() +
                                 ", authors=" + book.getAuthors().stream().map(Author::getName).collect(Collectors.toList())));
     }
@@ -157,7 +157,7 @@ public class LambdasHandler {
                 .sorted(Comparator.comparing(Book::getNumberOfPage))
                 .forEach(book ->
                         logger.info("Book[" +
-                                "title='" +book.getTitle() + '\'' +
+                                "title=" + book.getTitle() +
                                 ", numberOfPage=" + book.getNumberOfPage() +
                                 ", authors=" + book.getAuthors().stream().map(Author::getName).collect(Collectors.toList())
                                 + "]"));
@@ -167,7 +167,7 @@ public class LambdasHandler {
                 .sorted(Comparator.comparing(Book::getTitle))
                 .forEach(book ->
                         logger.info("Book[" +
-                                "title='" +book.getTitle() + '\'' +
+                                "title=" + book.getTitle() +
                                 ", numberOfPage=" + book.getNumberOfPage() +
                                 ", authors=" + book.getAuthors().stream().map(Author::getName).collect(Collectors.toList())
                                 + "]"));

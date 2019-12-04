@@ -52,9 +52,9 @@ public class A {
     @Override
     public String toString() {
         return "A{" +
-                "name='" + name + '\'' +
+                "name=" + name +
                 ", value1=" + value1 +
                 ", value2=" + value2 +
-                '}';
+                "}";
     }
 }

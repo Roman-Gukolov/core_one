@@ -85,7 +85,7 @@ public class Lambdas {
                         logger.info("Уникальные авторы: ");
                         authors.forEach(author ->
                                 logger.info("Author{" +
-                                        "name='" +author.getName() + '\'' +
+                                        "name=" + author.getName() +
                                         ", age=" + author.getAge() +
                                         ", books=" + author.getBooks().stream().map(Book::getTitle).collect(Collectors.toList())
                                         + "]"));
