@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util
+   		   http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="employeeVasya" class="com.epam.spring.intro.entity.Employee">
+        <property name="id" value="0"/>
+        <property name="name" value="Vasya"/>
+        <property name="age" value="44"/>
+        <property name="level" value="4"/>
+        <property name="salary" value="60000"/>
+    </bean>
+
+    <bean id="employeePetya" class="com.epam.spring.intro.entity.Employee">
+        <property name="id" value="1"/>
+        <property name="name" value="Petya"/>
+        <property name="age" value="23"/>
+        <property name="level" value="2"/>
+        <property name="salary" value="30000"/>
+    </bean>
+
+    <bean id="employeeVova" class="com.epam.spring.intro.entity.Employee">
+        <property name="id" value="2"/>
+        <property name="name" value="Vova"/>
+        <property name="age" value="35"/>
+        <property name="level" value="3"/>
+        <property name="salary" value="35000"/>
+    </bean>
+
+    <bean id="employeeOleg" class="com.epam.spring.intro.entity.Employee">
+        <property name="id" value="3"/>
+        <property name="name" value="Oleg"/>
+        <property name="age" value="27"/>
+        <property name="level" value="2"/>
+        <property name="salary" value="30000"/>
+    </bean>
+
+    <bean id="positionDev" class="com.epam.spring.intro.entity.Position">
+        <property name="id" value="0"/>
+        <property name="name" value="Dev"/>
+        <property name="employees" ref="employeesDevList"/>
+    </bean>
+
+    <bean id="positionTest" class="com.epam.spring.intro.entity.Position">
+        <property name="id" value="1"/>
+        <property name="name" value="Test"/>
+        <property name="employees" ref="employeesTestList"/>
+    </bean>
+
+    <bean id="company" class="com.epam.spring.intro.entity.Company">
+        <property name="title" value="worstCompany"/>
+        <property name="lifeTime" value="0"/>
+        <property name="successfullyProjects" value="0"/>
+        <property name="salaryLastYear" value="0"/>
+        <property name="totalSalary" value="0"/>
+        <property name="positions" ref="positionsList"/>
+    </bean>
+
+    <bean id="employeeService" class="com.epam.spring.intro.service.EmployeeServiceImpl">
+        <property name="employees" ref="allEmployees"/>
+    </bean>
+
+    <bean id="positionService" class="com.epam.spring.intro.service.PositionServiceImpl">
+        <property name="positions" ref="positionsList"/>
+    </bean>
+
+    <bean id="salaryService" class="com.epam.spring.intro.service.SalaryServiceImpl"/>
+
+    <util:list id="employeesDevList" value-type="com.epam.spring.intro.entity.Employee">
+        <ref bean="employeeVasya"/>
+        <ref bean="employeePetya"/>
+    </util:list>
+
+    <util:list id="employeesTestList" value-type="com.epam.spring.intro.entity.Employee">
+        <ref bean="employeeVova"/>
+        <ref bean="employeeOleg"/>
+    </util:list>
+
+    <util:list id="allEmployees" value-type="com.epam.spring.intro.entity.Employee">
+        <ref bean="employeeVasya"/>
+        <ref bean="employeePetya"/>
+        <ref bean="employeeVova"/>
+        <ref bean="employeeOleg"/>
+    </util:list>
+
+    <util:list id="positionsList" value-type="com.epam.spring.intro.entity.Position">
+        <ref bean="positionDev"/>
+        <ref bean="positionTest"/>
+    </util:list>
+
+</beans>
