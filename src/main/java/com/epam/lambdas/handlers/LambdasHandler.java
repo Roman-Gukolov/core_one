@@ -131,13 +131,15 @@ public class LambdasHandler {
     }
 
     public static void findMinAndMaxPages(Book[] arrayOfBooks) {
-        logger.info("Минимум страниц: " + Arrays.stream(arrayOfBooks)
+        OptionalInt min = Arrays.stream(arrayOfBooks)
                 .map(Book::getNumberOfPage)
-                .mapToInt(i -> i).min().getAsInt());
+                .mapToInt(i -> i).min();
+        logger.info("Минимум страниц: " + min.getAsInt());
 
-        logger.info("Максимум страниц: " + Arrays.stream(arrayOfBooks)
+        OptionalInt max = Arrays.stream(arrayOfBooks)
                 .map(Book::getNumberOfPage)
-                .mapToInt(i -> i).max().getAsInt());
+                .mapToInt(i -> i).max();
+        logger.info("Максимум страниц: " + max.getAsInt());
     }
 
     public static void findBooksWithSingleAuthors(Book[] arrayOfBooks) {
