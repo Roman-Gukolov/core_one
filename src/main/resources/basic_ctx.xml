@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util
+   		   http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="beanA" class="com.epam.spring.basic.entity.EntityA">
+        <property name="id" value="0"/>
+        <property name="name" value="Vasya"/>
+    </bean>
+
+    <bean id="beanB" class="com.epam.spring.basic.entity.EntityB">
+        <constructor-arg index="0" ref="beanA"/>
+    </bean>
+
+    <bean id="beanC" class="com.epam.spring.basic.entity.EntityC" scope="singleton">
+        <property name="entityD" ref="beanD" />
+    </bean>
+
+    <bean id="beanD" class="com.epam.spring.basic.entity.EntityD" scope="prototype">
+        <property name="id" value="3"/>
+        <property name="name" value="Vasya"/>
+    </bean>
+
+    <bean id="beanE" class="com.epam.spring.basic.entity.EntityE">
+        <replaced-method name="printMessage" replacer="replacer">
+            <arg-type>String</arg-type>
+        </replaced-method>
+    </bean>
+
+    <bean id="beanF" class="com.epam.spring.basic.entity.EntityF"/>
+
+    <bean id="coeffBean" class="com.epam.spring.basic.factory.RandomCoeff" scope="prototype" />
+
+    <bean id="coeffFactory" class="com.epam.spring.basic.factory.RandomCoeff" factory-method="getObject" factory-bean="coeffBean"/>
+
+    <bean id="popularSkill" class="com.epam.spring.basic.entity.Skill">
+        <property name="level" value="3"/>
+        <property name="rate" value="10"/>
+        <property name="name" value="most popular"/>
+    </bean>
+
+    <bean id="unpopularSkill" class="com.epam.spring.basic.entity.Skill">
+        <property name="level" value="2"/>
+        <property name="rate" value="2"/>
+        <property name="name" value="not popular"/>
+    </bean>
+
+    <bean id="replacer" class="com.epam.spring.basic.util.Replacer"/>
+
+    <util:list id="skillsList" value-type="com.epam.spring.basic.entity.Skill">
+        <ref bean="popularSkill"/>
+        <ref bean="unpopularSkill"/>
+    </util:list>
+
+</beans>
