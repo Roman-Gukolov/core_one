@@ -32,7 +32,7 @@
         </replaced-method>
     </bean>
 
-    <bean id="beanF" class="com.epam.spring.basic.entity.EntityF"/>
+    <bean id="beanF" class="com.epam.spring.basic.entity.EntityF" init-method="postConstruct" destroy-method="preDestroy" />
 
     <bean id="coeffBean" class="com.epam.spring.basic.factory.RandomCoeff" scope="prototype" />
 
