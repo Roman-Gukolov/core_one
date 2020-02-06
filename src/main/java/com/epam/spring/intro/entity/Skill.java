@@ -1,9 +1,18 @@
-package com.epam.spring.basic.entity;
+package com.epam.spring.intro.entity;
 
 public class Skill {
+    private int id;
     private int level;
     private int rate;
     private String name;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getLevel() {
         return level;
@@ -32,6 +41,7 @@ public class Skill {
     @Override
     public String toString() {
         return "Skill{" +
+                "id=" + id +
                 "level=" + level +
                 ", rate=" + rate +
                 ", name=" + name +

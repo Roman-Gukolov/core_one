@@ -1,9 +1,10 @@
 package com.epam.spring.intro.service;
 
 import com.epam.spring.intro.entity.Employee;
+import com.epam.spring.intro.entity.Skill;
 import com.epam.spring.intro.exceptions.ServiceException;
 import com.epam.spring.intro.interfaces.EmployeeService;
-import com.epam.spring.intro.util.StringUtil;
+import com.epam.spring.intro.util.StringMessages;
 import org.apache.log4j.Logger;
 
 import java.util.Collections;
@@ -17,17 +18,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     private List<Employee> employees;
 
     @Override
-    public void addEmployee(String name, int age, int level, int salary) throws ServiceException {
+    public void addEmployee(String name, int age, Skill skill, int salary) throws ServiceException {
         try {
             employeeCount++;
             Employee employee = new Employee();
             employee.setId(employeeCount);
             employee.setName(name);
             employee.setAge(age);
-            employee.setLevel(level);
+            employee.setSkill(skill);
             employee.setSalary(salary);
             employees.add(employee);
-            logger.info(StringUtil.SUCCESSFUL_MESSAGE);
+            logger.info(StringMessages.SUCCESSFUL_MESSAGE);
         } catch (Exception e) {
             String errorMessage = "Ошиюка добавления сотрудника: " + e.getMessage();
             logger.error(errorMessage);
@@ -39,7 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteEmployee(int id) throws ServiceException {
         try {
             employees.remove(id);
-            logger.info(StringUtil.SUCCESSFUL_MESSAGE);
+            logger.info(StringMessages.SUCCESSFUL_MESSAGE);
         } catch (Exception e) {
             String errorMessage = "Ошиюка удаления сотрудника: " + e.getMessage();
             logger.error(errorMessage);
@@ -61,7 +62,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getByLevel(int level) {
         try {
-            return employees.stream().filter(e -> e.getLevel() >= level).collect(Collectors.toList());
+            return employees.stream().filter(e -> e.getSkill().getLevel() >= level).collect(Collectors.toList());
         } catch (Exception e) {
             String errorMessage = "Ошиюка поиска сотрудника: " + e.getMessage();
             logger.error(errorMessage);

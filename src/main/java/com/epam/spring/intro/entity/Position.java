@@ -12,6 +12,8 @@ public class Position implements Serializable {
 
     private List<Employee> employees;
 
+    private List<Skill> skills;
+
     public int getId() {
         return id;
     }
@@ -36,5 +38,11 @@ public class Position implements Serializable {
         this.employees = employees;
     }
 
+    public List<Skill> getSkills() {
+        return skills;
+    }
 
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
+    }
 }

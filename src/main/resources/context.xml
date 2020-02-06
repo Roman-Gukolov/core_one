@@ -8,11 +8,42 @@
            http://www.springframework.org/schema/util
    		   http://www.springframework.org/schema/util/spring-util.xsd">
 
+    <bean id="devMiddle" class="com.epam.spring.intro.entity.Skill">
+        <property name="id" value="0"/>
+        <property name="level" value="2"/>
+        <property name="name" value="Middle developer"/>
+        <property name="rate" value="2"/>
+    </bean>
+    <bean id="devSenior" class="com.epam.spring.intro.entity.Skill">
+        <property name="id" value="1"/>
+        <property name="level" value="3"/>
+        <property name="name" value="Senior developer"/>
+        <property name="rate" value="4"/>
+    </bean>
+    <bean id="testJunior" class="com.epam.spring.intro.entity.Skill">
+        <property name="id" value="2"/>
+        <property name="level" value="1"/>
+        <property name="name" value="Junior tester"/>
+        <property name="rate" value="1"/>
+    </bean>
+    <bean id="testMiddle" class="com.epam.spring.intro.entity.Skill">
+        <property name="id" value="3"/>
+        <property name="level" value="2"/>
+        <property name="name" value="Middle tester"/>
+        <property name="rate" value="2"/>
+    </bean>
+    <bean id="testSenior" class="com.epam.spring.intro.entity.Skill">
+        <property name="id" value="4"/>
+        <property name="level" value="3"/>
+        <property name="name" value="Senior tester"/>
+        <property name="rate" value="4"/>
+    </bean>
+
     <bean id="employeeVasya" class="com.epam.spring.intro.entity.Employee">
         <property name="id" value="0"/>
         <property name="name" value="Vasya"/>
         <property name="age" value="44"/>
-        <property name="level" value="4"/>
+        <property name="skill" ref="devSenior"/>
         <property name="salary" value="60000"/>
     </bean>
 
@@ -20,7 +51,7 @@
         <property name="id" value="1"/>
         <property name="name" value="Petya"/>
         <property name="age" value="23"/>
-        <property name="level" value="2"/>
+        <property name="skill" ref="devSenior"/>
         <property name="salary" value="30000"/>
     </bean>
 
@@ -28,7 +59,7 @@
         <property name="id" value="2"/>
         <property name="name" value="Vova"/>
         <property name="age" value="35"/>
-        <property name="level" value="3"/>
+        <property name="skill" ref="testJunior"/>
         <property name="salary" value="35000"/>
     </bean>
 
@@ -36,7 +67,7 @@
         <property name="id" value="3"/>
         <property name="name" value="Oleg"/>
         <property name="age" value="27"/>
-        <property name="level" value="2"/>
+        <property name="skill" ref="testMiddle"/>
         <property name="salary" value="30000"/>
     </bean>
 
@@ -44,12 +75,14 @@
         <property name="id" value="0"/>
         <property name="name" value="Dev"/>
         <property name="employees" ref="employeesDevList"/>
+        <property name="skills" ref="requiredDevSkills"/>
     </bean>
 
     <bean id="positionTest" class="com.epam.spring.intro.entity.Position">
         <property name="id" value="1"/>
         <property name="name" value="Test"/>
         <property name="employees" ref="employeesTestList"/>
+        <property name="skills" ref="requiredTestSkills"/>
     </bean>
 
     <bean id="company" class="com.epam.spring.intro.entity.Company">
@@ -70,6 +103,25 @@
     </bean>
 
     <bean id="salaryService" class="com.epam.spring.intro.service.SalaryServiceImpl"/>
+
+    <util:list id="requiredDevSkills" value-type="com.epam.spring.intro.entity.Skill">
+        <ref bean="devSenior"/>
+        <ref bean="devMiddle"/>
+    </util:list>
+
+    <util:list id="requiredTestSkills" value-type="com.epam.spring.intro.entity.Skill">
+        <ref bean="testMiddle"/>
+        <ref bean="testJunior"/>
+        <ref bean="testSenior"/>
+    </util:list>
+
+    <util:list id="dictionarySkills" value-type="com.epam.spring.intro.entity.Skill">
+        <ref bean="testSenior"/>
+        <ref bean="testJunior"/>
+        <ref bean="testMiddle"/>
+        <ref bean="devMiddle"/>
+        <ref bean="devSenior"/>
+    </util:list>
 
     <util:list id="employeesDevList" value-type="com.epam.spring.intro.entity.Employee">
         <ref bean="employeeVasya"/>

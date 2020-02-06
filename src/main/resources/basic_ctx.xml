@@ -32,29 +32,16 @@
         </replaced-method>
     </bean>
 
-    <bean id="beanF" class="com.epam.spring.basic.entity.EntityF" init-method="postConstruct" destroy-method="preDestroy" />
+    <bean id="coeffBean" class="com.epam.spring.basic.factory.RandomCoeff" scope="prototype">
+        <property name="constCoeff" ref="staticE"/>
+    </bean>
 
-    <bean id="coeffBean" class="com.epam.spring.basic.factory.RandomCoeff" scope="prototype" />
+    <bean id="beanF" class="com.epam.spring.basic.entity.EntityF" init-method="postConstruct" destroy-method="preDestroy" />
 
     <bean id="coeffFactory" class="com.epam.spring.basic.factory.RandomCoeff" factory-method="getObject" factory-bean="coeffBean"/>
 
-    <bean id="popularSkill" class="com.epam.spring.basic.entity.Skill">
-        <property name="level" value="3"/>
-        <property name="rate" value="10"/>
-        <property name="name" value="most popular"/>
-    </bean>
-
-    <bean id="unpopularSkill" class="com.epam.spring.basic.entity.Skill">
-        <property name="level" value="2"/>
-        <property name="rate" value="2"/>
-        <property name="name" value="not popular"/>
-    </bean>
-
     <bean id="replacer" class="com.epam.spring.basic.util.Replacer"/>
 
-    <util:list id="skillsList" value-type="com.epam.spring.basic.entity.Skill">
-        <ref bean="popularSkill"/>
-        <ref bean="unpopularSkill"/>
-    </util:list>
+    <util:constant id="staticE" static-field="java.lang.Math.E"/>
 
 </beans>

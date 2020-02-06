@@ -2,22 +2,28 @@ package com.epam.spring.intro;
 
 import com.epam.spring.intro.entity.Company;
 import com.epam.spring.intro.entity.Employee;
+import com.epam.spring.intro.entity.Position;
+import com.epam.spring.intro.entity.Skill;
 import com.epam.spring.intro.exceptions.ServiceException;
 import com.epam.spring.intro.interfaces.EmployeeService;
 import com.epam.spring.intro.interfaces.PositionService;
 import com.epam.spring.intro.interfaces.SalaryService;
 import com.epam.spring.intro.util.MainCommand;
-import com.epam.spring.intro.util.StringUtil;
+import com.epam.spring.intro.util.StringMessages;
 import com.google.gson.Gson;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.epam.spring.intro.util.StringUtil.*;
+import static com.epam.spring.intro.util.StringMessages.*;
 
 public class CompanyProcessor {
     private static final Logger logger = Logger.getLogger(CompanyProcessor.class);
@@ -28,6 +34,7 @@ public class CompanyProcessor {
     private static PositionService positionService;
     private static SalaryService salaryService;
     private static Company company;
+    private static List<Skill> skillsDictionary;
 
     public static void main(String[] args) {
         init();
@@ -40,12 +47,13 @@ public class CompanyProcessor {
         positionService = context.getBean("positionService", PositionService.class);
         salaryService = context.getBean("salaryService", SalaryService.class);
         company = context.getBean("company", Company.class);
+        skillsDictionary = context.getBean("dictionarySkills", List.class);
     }
 
     private static void work() {
         boolean work = true;
         String command;
-        logger.info(StringUtil.HELP_TEXT);
+        logger.info(StringMessages.HELP_TEXT);
 
         while (work) {
             try {
@@ -76,8 +84,12 @@ public class CompanyProcessor {
                         workSalaryService();
                         break;
                     }
+                    case setSkillRate: {
+                        setSkillRate();
+                        break;
+                    }
                     case help: {
-                        logger.info(StringUtil.HELP_TEXT);
+                        logger.info(StringMessages.HELP_TEXT);
                         break;
                     }
                     case exit: {
@@ -97,7 +109,7 @@ public class CompanyProcessor {
 
     private static void workPositionService() throws ServiceException {
         try {
-            logger.info(StringUtil.HELP_TEXT_POSITION);
+            logger.info(StringMessages.HELP_TEXT_POSITION);
             String command = input.nextLine();
             switch (MainCommand.valueOf(command)) {
                 case allPosition: {
@@ -119,7 +131,14 @@ public class CompanyProcessor {
                 case create: {
                     logger.info(INPUT_NAME_MESSAGE);
                     String name = input.nextLine();
-                    positionService.createPosition(name);
+                    logger.info(INPUT_ID_EMPLOYEES);
+                    String employesIds = input.nextLine();
+                    List<Employee> employees = parseId(employesIds);
+                    logger.info(INPUT_ID_SKILLS);
+                    String skillsIds = input.nextLine();
+                    List<Skill> skills = parseIdSkills(skillsIds);
+
+                    positionService.createPosition(name, employees, skills);
                     break;
                 }
                 case update: {
@@ -127,10 +146,14 @@ public class CompanyProcessor {
                     int id = input.nextInt();
                     logger.info(INPUT_NAME_MESSAGE);
                     String name = input.nextLine();
-                    logger.info("Введите id сотрудников через запятую.");
+                    logger.info(INPUT_ID_EMPLOYEES);
                     String idEmployees = input.nextLine();
                     List<Employee> employees = parseId(idEmployees);
-                    positionService.updatePosition(id, name, employees);
+                    logger.info(INPUT_ID_SKILLS);
+                    String skillsIds = input.nextLine();
+                    List<Skill> skills = parseIdSkills(skillsIds);
+
+                    positionService.updatePosition(id, name, employees, skills);
                     break;
                 }
                 case delete: {
@@ -154,7 +177,7 @@ public class CompanyProcessor {
 
     private static void workEmployeesService() throws ServiceException {
         try {
-            logger.info(StringUtil.HELP_TEXT_EMPLOYEES);
+            logger.info(StringMessages.HELP_TEXT_EMPLOYEES);
             String command = input.nextLine();
             switch (MainCommand.valueOf(command)) {
                 case allEmployees: {
@@ -178,11 +201,16 @@ public class CompanyProcessor {
                     String name = input.nextLine();
                     logger.info("Введите возраст");
                     int age = input.nextInt();
-                    logger.info("Введите уровень");
-                    int level = input.nextInt();
+                    logger.info("Укажите id скила.");
+                    int skillId = input.nextInt();
+                    if (skillsDictionary == null || (skillsDictionary.size() - 1) < skillId) {
+                        throw new ServiceException("Такого скила не существует.");
+                    }
+
+                    Skill skill = skillsDictionary.get(skillId);
                     logger.info("Введите зарплату");
                     int salary = input.nextInt();
-                    employeeService.addEmployee(name, age, level, salary);
+                    employeeService.addEmployee(name, age, skill, salary);
                     break;
                 }
                 case delete: {
@@ -206,7 +234,7 @@ public class CompanyProcessor {
 
     private static void workSalaryService() throws ServiceException {
         try {
-            logger.info(StringUtil.HELP_TEXT_SALARY);
+            logger.info(StringMessages.HELP_TEXT_SALARY);
             String command = input.nextLine();
             switch (MainCommand.valueOf(command)) {
                 case linkToDollar: {
@@ -237,6 +265,9 @@ public class CompanyProcessor {
     }
 
     private static List<Employee> parseId(String ids) throws ServiceException {
+        if (StringUtils.isBlank(ids)) {
+            return Collections.emptyList();
+        }
         try {
             ids = ids.replaceAll(" ", "");
             String[] employeesId = ids.split(",");
@@ -252,6 +283,30 @@ public class CompanyProcessor {
         }
     }
 
+    private static List<Skill> parseIdSkills(String ids) throws ServiceException {
+        if (StringUtils.isBlank(ids)) {
+            return Collections.emptyList();
+        }
+
+        if (CollectionUtils.isEmpty(skillsDictionary)) {
+            throw new ServiceException("Нет доступных скилов.");
+        }
+
+        try {
+            ids = ids.replaceAll(" ", "");
+            String[] skillsId = ids.split(",");
+            List<Skill> skills = new ArrayList<>();
+            for (String id : skillsId) {
+                skills.add(skillsDictionary.get(NumberUtils.toInt(id, 0)));
+            }
+            return skills;
+        } catch (Exception e) {
+            String errorMessage = "Ошибка получения сотрудников по указанным id" + e.getMessage();
+            logger.info(errorMessage);
+            throw new ServiceException(errorMessage);
+        }
+    }
+
     private static double calculateSalaryForYear() {
         List<Employee> employees = employeeService.getEmployees();
         double count = 0;
@@ -259,6 +314,15 @@ public class CompanyProcessor {
             count = count + employee.getSalary();
         }
         return count;
+    }
+
+    public static void setSkillRate() throws ServiceException {
+        logger.info(INPUT_ID_POSITION_MESSAGE);
+        int positionId = input.nextInt();
+        Position position = positionService.getPositionById(positionId);
+        logger.info(INPUT_SKILL_RATE);
+        int rate = input.nextInt();
+        positionService.setUnpopularSkillRate(position, rate);
     }
 
     private static String toString(Object object) {

@@ -18,6 +18,7 @@ public enum MainCommand {
     salary("salary"),
     linkToDollar("linkToDollar"),
     linkToStaff("linkToStaff"),
+    setSkillRate("setSkillRate"),
     help("help"),
     exit("exit");
 

@@ -11,7 +11,7 @@ public class Employee implements Serializable {
 
     private int age;
 
-    private int level;
+    private Skill skill;
 
     private double salary;
 
@@ -39,12 +39,12 @@ public class Employee implements Serializable {
         this.age = age;
     }
 
-    public int getLevel() {
-        return level;
+    public Skill getSkill() {
+        return skill;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void setSkill(Skill skill) {
+        this.skill = skill;
     }
 
     public double getSalary() {
